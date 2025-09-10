@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Engineering Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Font */
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+            /* Color Palette */
+            --gradient-bg: linear-gradient(135deg, #03045E, #023E8A, #0077B6, #0096C7);
+            --text-light: #caf0f8;
+            --text-dark-primary: #023e8a;
+            --text-dark-secondary: #0077b6;
+            --glow-color: #48cae4;
+            --card-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(202, 240, 248, 0.8));
+            --card-border: rgba(255, 255, 255, 0.3);
+            --tech-pill-bg: rgba(0, 119, 182, 0.8);
+
+            /* Animation */
+            --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --duration-medium: 300ms;
+            --duration-slow: 500ms;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            background: var(--gradient-bg);
+            background-size: 200% 200%;
+            animation: gradientFlow 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* --- Hero Section --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 6rem;
+            padding: 2rem 0;
+        }
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--glow-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(72, 202, 228, 0.2);
+        }
+        .hero-text .subtitle { 
+            font-size: 1.3rem; 
+            font-weight: 500;
+            opacity: 0.9; 
+            max-width: 500px;
+        }
+        .hero-visual {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 1rem;
+            border: 1px solid var(--card-border);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        .timeline-mockup {
+            width: 90%;
+            height: 80%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            padding: 1rem;
+            transform: rotateY(-15deg) rotateX(5deg);
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.2);
+        }
+        .timeline-block {
+            background: rgba(255,255,255,0.3);
+            border-radius: 5px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .timeline-block:nth-child(2) { animation-delay: 0.5s; }
+        .timeline-block:nth-child(4) { animation-delay: 1.0s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+
+        .section { margin-bottom: 4rem; }
+        .section-title { 
+            font-size: 2.5rem; 
+            font-weight: 800;
+            margin-bottom: 2rem; 
+            display: inline-block; 
+            padding-bottom: 0.5rem; 
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--glow-color);
+            transform-origin: center;
+            animation: pulseUnderline 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseUnderline {
+            0%, 100% { transform: scaleX(1); opacity: 0.8; }
+            50% { transform: scaleX(1.03); opacity: 1; }
+        }
+        
+        /* --- Grid Layouts --- */
+        .project-grid-featured {
+            display: grid;
+            margin-bottom: 2rem;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .project-grid-2-col {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform var(--duration-medium) var(--ease-out),
+                        box-shadow var(--duration-medium) var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp var(--duration-slow) var(--ease-out) forwards;
+        }
+        
+        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .glass-card::before {
+            content: "";
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity var(--duration-medium) var(--ease-out);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .card-content { padding: 2rem; flex-grow: 1; z-index: 2; }
+        .card-content h3 { 
+            color: var(--text-dark-primary); 
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem; 
+        }
+        .card-content p { 
+            color: var(--text-dark-secondary); 
+            font-size: 1rem; 
+            font-weight: 500;
+            margin-bottom: 1.5rem; 
+        }
+        
+        .card-footer { 
+            padding: 1rem 2rem; 
+            margin-top: auto; 
+            z-index: 2; 
+            background: rgba(255,255,255,0.2); 
+            border-top: 1px solid var(--card-border);
+        }
+
+        .status-badge { 
+            display: inline-block; 
+            padding: 0.4rem 1.2rem; 
+            border-radius: 20px; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+            margin-bottom: 1rem; 
+            background: rgba(255,255,255,0.8); 
+        }
+        .status-ongoing { color: #0f5132; }
+        .status-completed { color: #055160; }
+        .status-hobby { color: #664d03; }
+        
+        .tech-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .tech-pill { 
+            background: var(--tech-pill-bg); 
+            color: var(--text-light); 
+            padding: 0.4rem 1rem; 
+            border-radius: 15px; 
+            font-size: 0.8rem; 
+            font-weight: 700;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #0096c7;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform var(--duration-medium) var(--ease-out),
+                        background-color var(--duration-medium) var(--ease-out);
+        }
+        .cta-button:hover {
+            background-color: var(--glow-color);
+            color: var(--text-dark-primary);
+            transform: scale(1.05);
+        }
+
+        @media(max-width: 900px){
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-text .subtitle { margin: 0 auto; }
+            .project-grid-2-col { grid-template-columns: 1fr; }
+        }
+        @media(max-width:768px){
+            .hero-text h1{font-size:2.8rem;}
+            .card-content h3 {font-size: 1.6rem;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-text">
+                <h1>My Engineering Portfolio</h1>
+                <p class="subtitle">A Showcase of Full-Stack, IoT, Electrical Engineering & DevOps Projects</p>
+            </div>
+            <div class="hero-visual">
+                <div class="timeline-mockup">
+                    <div class="timeline-block"></div>
+                    <div class="timeline-block"></div>
+                    <div class="timeline-block"></div>
+                    <div class="timeline-block"></div>
+                    <div class="timeline-block"></div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- ONGOING PROJECTS SECTION -->
+            <div class="section">
+                <h2 class="section-title">Ongoing Projects</h2>
+                
+                <!-- Featured Project -->
+                <div class="project-grid-featured">
+                     <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-ongoing">Running Prototype</span>
+                            <h3>Hydroponic Smart Farming</h3>
+                            <p>An automated hydroponic system achieving a 45%+ weekly growth rate, outperforming world standards. The next phase will integrate IoT sensors and AI for predictive growth optimization.</p>
+                            <a href="hydroponic_timeline.html" class="cta-button">View Project Details</a>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">IoT</span><span class="tech-pill">AI/ML</span><span class="tech-pill">React</span><span class="tech-pill">Python</span></div></div>
+                    </div>
+                </div>
+
+                <!-- Other Ongoing Projects -->
+                <div class="project-grid project-grid-2-col">
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-ongoing">In Development</span>
+                            <h3>Timeline Productivity App</h3>
+                            <p>A multi-platform app reimagining productivity with a "video editor" style multi-track interface for managing parallel tasks.</p>
+                            <a href="timeline_portfolio.html" class="cta-button">View Project Details</a>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">Swift/SwiftUI</span><span class="tech-pill">Kotlin</span><span class="tech-pill">Appwrite</span></div></div>
+                    </div>
+                     <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-ongoing">Part 1 Implemented</span>
+                            <h3>Button Mushroom IoT System</h3>
+                            <p>An IoT-enhanced system for mushroom cultivation with automated climate control. Next phase includes vision AI and robotics.</p>
+                            <a href="Button_Mushroom_timeline.html" class="cta-button">View Project Details</a>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">IoT</span><span class="tech-pill">Climate Control</span><span class="tech-pill">Vision AI</span></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPLETED PROJECTS SECTION -->
+            <div class="section">
+                <h2 class="section-title">Completed Projects</h2>
+                <div class="project-grid">
+                     <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-completed">Part 1 Completed</span>
+                            <h3>Kele-Kade Cycle Management</h3>
+                            <p>An internal web app for a bicycle repair shop with real-time employee and product management.</p>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">Next.js</span><span class="tech-pill">Appwrite</span><span class="tech-pill">Redux</span></div></div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-completed">Completed</span>
+                            <h3>Hybrid Bicycle BMS</h3>
+                            <p>Led the engineering for a smart Battery Management System with energy recovery and Home Assistant integration.</p>
+                            <a href="hybrid_bicycle_timeline.html" class="cta-button">View Project Details</a>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">ESP32</span><span class="tech-pill">Home Assistant</span><span class="tech-pill">BMS Design</span></div></div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-completed">Completed</span>
+                            <h3>ExamLLB Learning Game</h3>
+                            <p>A web-based gamified learning platform for law students using an AI to generate personalized MCQ games.</p>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">Next.js</span><span class="tech-pill">Gamification</span><span class="tech-pill">AI</span></div></div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- HOBBIES & EXPLORATION SECTION -->
+             <div class="section">
+                <h2 class="section-title">Hobbies & Exploration</h2>
+                <div class="project-grid">
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-hobby">Ongoing Hobby</span>
+                            <h3>DevOps Homelab</h3>
+                            <p>A Proxmox VE cluster using repurposed laptops to create a personal cloud for exploring containerization and CI/CD.</p>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">Proxmox VE</span><span class="tech-pill">Docker</span><span class="tech-pill">Kubernetes</span></div></div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-hobby">Ongoing Hobby</span>
+                            <h3>Advanced AI Agents</h3>
+                            <p>Building autonomous AI agents and multi-agent frameworks using tools like LangGraph and LangSmith.</p>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">LangChain</span><span class="tech-pill">LangGraph</span><span class="tech-pill">LLMs</span></div></div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-content">
+                            <span class="status-badge status-hobby">Ongoing Hobby</span>
+                            <h3>Smart Home Automation</h3>
+                            <p>Developing custom smart devices using ESPHome for seamless, local integration with Home Assistant.</p>
+                        </div>
+                        <div class="card-footer"><div class="tech-pills"><span class="tech-pill">ESPHome</span><span class="tech-pill">Home Assistant</span><span class="tech-pill">IoT</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
