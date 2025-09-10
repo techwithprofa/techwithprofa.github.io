@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydroponic Dashboard - Portfolio Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --gradient-bg: linear-gradient(135deg, #03045E, #023E8A, #0077B6, #0096C7);
+            --text-light: #caf0f8;
+            --text-dark-primary: #023e8a;
+            --text-dark-secondary: #0077b6;
+            --glow-color: #48cae4;
+            --card-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(202, 240, 248, 0.9));
+            --card-border: rgba(255, 255, 255, 0.4);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --duration-medium: 300ms;
+            --duration-slow: 500ms;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            background: var(--gradient-bg);
+            background-size: 200% 200%;
+            animation: gradientFlow 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            margin: 0;
+        }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .page-header { text-align: center; margin-bottom: 3rem; position: relative; padding-top: 4rem; }
+        .page-header h1 { font-size: 4rem; font-weight: 800; background: linear-gradient(45deg, var(--text-light), var(--glow-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header .subtitle { font-size: 1.3rem; font-weight: 500; opacity: 0.9; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+
+        .glass-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform var(--duration-medium) var(--ease-out-quint);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp var(--duration-slow) var(--ease-out-quint) forwards;
+        }
+        .glass-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; padding: 2px; background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 1; opacity: 0; transition: opacity var(--duration-medium) var(--ease-out-quint); }
+        .glass-card:hover { transform: translateY(-8px) scale(1.02); }
+        .glass-card:hover::before { opacity: 1; animation: spin 3s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .main-content .glass-card:nth-of-type(1) { animation-delay: 100ms; }
+        .main-content .glass-card:nth-of-type(2) { animation-delay: 300ms; }
+        .sidebar-content .glass-card:nth-of-type(1) { animation-delay: 200ms; }
+        .sidebar-content .glass-card:nth-of-type(2) { animation-delay: 400ms; }
+
+        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
+
+        .card-content { padding: 2.5rem; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+        .card-content h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark-primary); margin-bottom: 1.5rem; padding-bottom: 0.5rem; display: inline-block; position: relative; }
+        .card-content h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--glow-color); transform-origin: center; animation: pulseUnderline 3s ease-in-out infinite; }
+        @keyframes pulseUnderline { 0%, 100% { transform: scaleX(1); opacity: 0.8; } 50% { transform: scaleX(1.03); opacity: 1; } }
+        
+        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .metric-card { background: rgba(255,255,255,0.5); border-radius: 15px; padding: 1.5rem; text-align: center; }
+        .metric-card .value { font-size: 2.5rem; font-weight: 800; color: var(--text-dark-primary); line-height: 1; margin-bottom: 0.25rem; }
+        .metric-card .label { font-size: 1rem; font-weight: 500; }
+        
+        .achievement-list { list-style-type: none; padding-left: 0; margin-top: 1.5rem; }
+        .achievement-item { display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.6); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .achievement-icon { flex-shrink: 0; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px; }
+        .achievement-icon svg { width: 28px; height: 28px; }
+        .achievement-text strong { color: var(--text-dark-primary); font-size: 1.1rem; font-weight: 700; display: block; }
+        .achievement-text p { font-size: 0.9rem; line-height: 1.5; }
+        
+        .analysis-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+        .chart-toggle { background-color: rgba(0,0,0,0.05); border-radius: 8px; padding: 0.25rem; display: inline-flex; gap: 0.25rem; }
+        .toggle-button { font-family: var(--font-family); background: transparent; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: 700; color: var(--text-dark-secondary); cursor: pointer; transition: all 0.3s var(--ease-out-quint); }
+        .toggle-button.active { background-color: white; color: var(--text-dark-primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .plant-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.5rem; margin-bottom: 1.5rem; }
+        .plant-button { background-color: rgba(0,0,0,0.05); color: var(--text-dark-secondary); border: 1px solid transparent; padding: 0.75rem; border-radius: 8px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .plant-button.active { background-color: var(--text-dark-primary); color: white; }
+        
+        .chart-view { display: none; }
+        .chart-view.active { display: block; }
+        
+        .table-container { flex-grow: 1; overflow-y: auto; max-height: 400px; }
+        .performance-table { width: 100%; border-collapse: collapse; font-family: var(--font-family); }
+        .performance-table th, .performance-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .performance-table th { font-weight: 700; color: var(--text-dark-primary); position: sticky; top: 0; background: var(--card-bg); }
+        .performance-table td { font-weight: 500; }
+        .performance-table tbody tr:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+        .performance-table .flagship-row { background-color: rgba(72, 202, 228, 0.1); }
+        .performance-table .growth-positive { color: #0f5132; font-weight: 700; }
+        
+        .cta-button { display: inline-block; background-color: #0096c7; color: white; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 700; }
+        .back-button { position: absolute; top: 2rem; left: 2rem; z-index: 10; }
+
+        @media(max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="hydroponic_timeline.html" class="cta-button back-button">← Back to Timeline</a>
+            <h1>Hydroponic Dashboard</h1>
+            <p class="subtitle">Real-time Growth Data for Nai Miris Cultivation</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="main-content">
+                 <div class="glass-card">
+                     <div class="card-content">
+                        <div class="analysis-header">
+                            <h2>Growth Analysis</h2>
+                            <div class="chart-toggle" id="chart-toggle-container">
+                                <button class="toggle-button active" data-chart="timeline">Timeline</button>
+                                <button class="toggle-button" data-chart="comparison">Comparison</button>
+                            </div>
+                        </div>
+                        
+                        <div id="view-timeline" class="chart-view active">
+                            <div class="plant-selector" id="plant-selector-container"></div>
+                            <canvas id="growthChart"></canvas>
+                        </div>
+
+                        <div id="view-comparison" class="chart-view">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                     </div>
+                </div>
+                <div class="glass-card">
+                     <div class="card-content">
+                        <h2>Performance Data</h2>
+                        <div class="table-container">
+                            <table class="performance-table">
+                                <thead>
+                                    <tr>
+                                        <th>Plant No.</th>
+                                        <th>Initial (cm)</th>
+                                        <th>Final (cm)</th>
+                                        <th>Growth</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="performance-table-body"></tbody>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2>Key Metrics</h2>
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="value"><span id="metric-max-size">0</span> cm</div>
+                                <div class="label">Flagship Plant (#2)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="value"><span id="metric-avg-size">0</span> cm</div>
+                                <div class="label">System Average Height</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="value">45%+</div>
+                                <div class="label">Sustained Weekly Growth</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="value" id="metric-days">0</div>
+                                <div class="label">Days Running</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="glass-card">
+                    <div class="card-content">
+                        <h2>Key Achievements</h2>
+                        <ul class="achievement-list">
+                            <li class="achievement-item">
+                                <div class="achievement-icon" style="color: #10b981"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
+                                <div class="achievement-text"><strong>Exceptional Growth</strong><p>Sustained 45%+ weekly growth rate.</p></div>
+                            </li>
+                             <li class="achievement-item">
+                                <div class="achievement-icon" style="color: #8b5cf6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                                <div class="achievement-text"><strong>Zero Deficiencies</strong><p>40+ consecutive days with no nutrient issues.</p></div>
+                            </li>
+                             <li class="achievement-item">
+                                <div class="achievement-icon" style="color: #f59e0b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+                                <div class="achievement-text"><strong>Accelerated Flowering</strong><p>First branching in 5 weeks vs. 16 in soil.</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rawData = [
+                { date: '2025/8/2', plantNo: 1, size: 6.5 }, { date: '2025/8/2', plantNo: 2, size: 10 }, { date: '2025/8/2', plantNo: 3, size: 4.5 }, { date: '2025/8/2', plantNo: 4, size: 4 }, { date: '2025/8/2', plantNo: 5, size: 2 }, { date: '2025/8/2', plantNo: 6, size: 5 }, { date: '2025/8/2', plantNo: 7, size: 6 }, { date: '2025/8/2', plantNo: 8, size: 3.5 }, { date: '2025/8/2', plantNo: 9, size: 7 }, { date: '2025/8/2', plantNo: 10, size: 4.5 }, { date: '2025/8/2', plantNo: 11, size: 2.5 }, { date: '2025/8/2', plantNo: 12, size: 4 }, { date: '2025/8/2', plantNo: 13, size: 3.5 }, { date: '2025/8/2', plantNo: 14, size: 2 }, { date: '2025/8/2', plantNo: 15, size: 3 }, { date: '2025/8/2', plantNo: 16, size: 3.5 },
+                { date: '2025/8/10', plantNo: 1, size: 9.5 }, { date: '2025/8/10', plantNo: 2, size: 15 }, { date: '2025/8/10', plantNo: 3, size: 7 }, { date: '2025/8/10', plantNo: 4, size: 6 }, { date: '2025/8/10', plantNo: 5, size: 4 }, { date: '2025/8/10', plantNo: 6, size: 4 }, { date: '2025/8/10', plantNo: 7, size: 8.5 }, { date: '2025/8/10', plantNo: 8, size: 6 }, { date: '2025/8/10', plantNo: 9, size: 12.5 }, { date: '2025/8/10', plantNo: 10, size: 7.5 }, { date: '2025/8/10', plantNo: 11, size: 3.5 }, { date: '2025/8/10', plantNo: 12, size: 4.5 }, { date: '2025/8/10', plantNo: 13, size: 3.5 }, { date: '2025/8/10', plantNo: 14, size: 3.5 }, { date: '2025/8/10', plantNo: 15, size: 3 }, { date: '2025/8/10', plantNo: 16, size: 4.5 },
+                { date: '2025/8/20', plantNo: 1, size: 19 }, { date: '2025/8/20', plantNo: 2, size: 30 }, { date: '2025/8/20', plantNo: 3, size: 14.5 }, { date: '2025/8/20', plantNo: 4, size: 15 }, { date: '2025/8/20', plantNo: 5, size: 9.5 }, { date: '2025/8/20', plantNo: 6, size: 9 }, { date: '2025/8/20', plantNo: 7, size: 17 }, { date: '2025/8/20', plantNo: 8, size: 10 }, { date: '2025/8/20', plantNo: 9, size: 24.5 }, { date: '2025/8/20', plantNo: 10, size: 11 }, { date: '2025/8/20', plantNo: 11, size: 5 }, { date: '2025/8/20', plantNo: 12, size: 10 }, { date: '2025/8/20', plantNo: 13, size: 5.5 }, { date: '2025/8/20', plantNo: 14, size: 5 }, { date: '2025/8/20', plantNo: 15, size: 7 }, { date: '2025/8/20', plantNo: 16, size: 7.5 },
+                { date: '2025/8/31', plantNo: 1, size: 31 }, { date: '2025/8/31', plantNo: 2, size: 50 }, { date: '2025/8/31', plantNo: 3, size: 21 }, { date: '2025/8/31', plantNo: 4, size: 28 }, { date: '2025/8/31', plantNo: 5, size: 16 }, { date: '2025/8/31', plantNo: 6, size: 17 }, { date: '2025/8/31', plantNo: 7, size: 30.5 }, { date: '2025/8/31', plantNo: 8, size: 18 }, { date: '2025/8/31', plantNo: 9, size: 43 }, { date: '2025/8/31', plantNo: 10, size: 22 }, { date: '2025/8/31', plantNo: 11, size: 7.5 }, { date: '2025/8/31', plantNo: 12, size: 18 }, { date: '2025/8/31', plantNo: 13, size: 7.5 }, { date: '2025/8/31', plantNo: 14, size: 8 }, { date: '2025/8/31', plantNo: 15, size: 15.5 }, { date: '2025/8/31', plantNo: 16, size: 17 },
+                { date: '2025/9/3', plantNo: 1, size: 33 }, { date: '2025/9/3', plantNo: 2, size: 55 }, { date: '2025/9/3', plantNo: 3, size: 25 }, { date: '2025/9/3', plantNo: 4, size: 31 }, { date: '2025/9/3', plantNo: 5, size: 19 }, { date: '2025/9/3', plantNo: 6, size: 18.5 }, { date: '2025/9/3', plantNo: 7, size: 36.5 }, { date: '2025/9/3', plantNo: 8, size: 20 }, { date: '2025/9/3', plantNo: 9, size: 48 }, { date: '2025/9/3', plantNo: 10, size: 26 }, { date: '2025/9/3', plantNo: 11, size: 11 }, { date: '2025/9/3', plantNo: 12, size: 21 }, { date: '2025/9/3', plantNo: 13, size: 9 }, { date: '2025/9/3', plantNo: 14, size: 9 }, { date: '2025/9/3', plantNo: 15, size: 22 }
+            ];
+            
+            let selectedPlants = [2, 9, 1];
+            let growthChartInstance, comparisonChartInstance;
+            let activeChart = 'timeline';
+            
+            const getDayNumber = (dateStr) => new Date(dateStr).getTime() > 0 ? Math.floor((new Date(dateStr).getTime() - new Date('2025/7/25').getTime()) / (1000 * 60 * 60 * 24)) : 0;
+            const latestDataAll = rawData.filter(d => d.date === '2025/9/3');
+            const avgSize = (latestDataAll.reduce((sum, p) => sum + p.size, 0) / latestDataAll.length).toFixed(1);
+            const maxSize = Math.max(...latestDataAll.map(p => p.size));
+            const daysRunning = getDayNumber('2025/9/3');
+            
+            const plantSelectorContainer = document.getElementById('plant-selector-container');
+            const performanceTableBody = document.getElementById('performance-table-body');
+            const chartToggleContainer = document.getElementById('chart-toggle-container');
+
+            function renderMetrics() {
+                document.getElementById('metric-max-size').innerText = maxSize;
+                document.getElementById('metric-avg-size').innerText = avgSize;
+                document.getElementById('metric-days').innerText = daysRunning;
+            }
+
+            function renderPlantSelector() {
+                plantSelectorContainer.innerHTML = '';
+                for (let i = 1; i <= 16; i++) {
+                    const button = document.createElement('button');
+                    button.className = `plant-button ${selectedPlants.includes(i) ? 'active' : ''}`;
+                    button.innerText = `Plant #${i}`;
+                    button.dataset.plantNo = i;
+                    plantSelectorContainer.appendChild(button);
+                }
+            }
+
+            function renderPerformanceTable() {
+                performanceTableBody.innerHTML = '';
+                const firstDate = '2025/8/2';
+                for(let i = 1; i <= 16; i++) {
+                    const initial = rawData.find(d => d.date === firstDate && d.plantNo === i);
+                    const plantData = rawData.filter(d => d.plantNo === i).sort((a,b) => new Date(b.date) - new Date(a.date));
+                    const final = plantData[0]; 
+
+                    if(!initial || !final) continue;
+
+                    const growth = ((final.size - initial.size) / initial.size * 100).toFixed(1);
+                    const row = document.createElement('tr');
+                    if(i === 2 || i === 9) row.className = 'flagship-row';
+                    row.innerHTML = `
+                        <td><strong>#${i}</strong></td>
+                        <td>${initial.size}</td>
+                        <td>${final.size}</td>
+                        <td class="growth-positive">+${growth}%</td>
+                    `;
+                    performanceTableBody.appendChild(row);
+                }
+            }
+
+            function renderCharts() {
+                if (growthChartInstance) growthChartInstance.destroy();
+                if (comparisonChartInstance) comparisonChartInstance.destroy();
+
+                document.querySelectorAll('.chart-view').forEach(c => c.classList.remove('active'));
+                
+                const fontColor = getComputedStyle(document.documentElement).getPropertyValue('--text-dark-secondary').trim();
+                Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+                Chart.defaults.color = fontColor;
+                Chart.defaults.font.weight = '500';
+                
+                const tooltipStyles = {
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(5px)',
+                    borderColor: 'var(--card-border)',
+                    borderWidth: 1,
+                    titleColor: 'var(--text-dark-primary)',
+                    bodyColor: 'var(--text-dark-secondary)',
+                    padding: 10,
+                    cornerRadius: 10,
+                    titleFont: { weight: '700' },
+                    bodyFont: { weight: '500' }
+                };
+
+                if (activeChart === 'timeline') {
+                    document.getElementById('view-timeline').classList.add('active');
+                    const ctx = document.getElementById('growthChart').getContext('2d');
+                    const dates = [...new Set(rawData.map(d => d.date))].sort((a,b) => new Date(a).getTime() - new Date(b).getTime());
+                    const labels = dates.map(date => [`Day ${getDayNumber(date)}`, `(${new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`]);
+                    const chartColors = ['#00b4d8', '#48cae4', '#90e0ef', '#0077b6', '#023e8a'];
+
+                    const datasets = selectedPlants.map((plantNo, index) => {
+                        const color = chartColors[index % chartColors.length];
+                        return {
+                            label: `Plant #${plantNo}`,
+                            data: dates.map(date => rawData.find(d => d.date === date && d.plantNo === plantNo)?.size ?? null),
+                            borderColor: color,
+                            tension: 0.3,
+                            borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: color,
+                            spanGaps: true
+                        };
+                    });
+
+                    growthChartInstance = new Chart(ctx, { type: 'line', data: { labels, datasets }, options: { scales: { y: { beginAtZero: true } }, interaction: { intersect: false, mode: 'index' }, plugins: { tooltip: { ...tooltipStyles } } }});
+                } else if (activeChart === 'comparison') {
+                    document.getElementById('view-comparison').classList.add('active');
+                    const ctx = document.getElementById('comparisonChart').getContext('2d');
+                    const finalData = [];
+                     for(let i = 1; i <= 16; i++) {
+                        const plantData = rawData.filter(d => d.plantNo === i).sort((a,b) => new Date(b.date) - new Date(a.date));
+                        if(plantData.length > 0) finalData.push(plantData[0]);
+                     }
+                    const labels = finalData.map(d => `#${d.plantNo}`);
+                    const data = finalData.map(d => d.size);
+                    
+                    comparisonChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Height (cm)', data, backgroundColor: '#48cae4', borderRadius: 4 }] }, options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyles } } }});
+                }
+            }
+            
+            chartToggleContainer.addEventListener('click', (e) => {
+                if (e.target.matches('.toggle-button')) {
+                    activeChart = e.target.dataset.chart;
+                    chartToggleContainer.querySelectorAll('.toggle-button').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderCharts();
+                }
+            });
+
+            plantSelectorContainer.addEventListener('click', (e) => {
+                if(e.target.matches('.plant-button')) {
+                    const plantNo = parseInt(e.target.dataset.plantNo);
+                    if (selectedPlants.includes(plantNo)) {
+                        selectedPlants = selectedPlants.filter(p => p !== plantNo);
+                    } else {
+                        selectedPlants.push(plantNo);
+                    }
+                    renderPlantSelector();
+                    renderCharts();
+                }
+            });
+
+            renderMetrics();
+            renderPlantSelector();
+            renderPerformanceTable();
+            renderCharts();
+        });
+    </script>
+</body>
+</html>
