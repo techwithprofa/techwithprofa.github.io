@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamLLB Video Player - Portfolio Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --gradient-bg: linear-gradient(135deg, #03045E, #023E8A, #0077B6, #0096C7);
+            --text-light: #caf0f8;
+            --glow-color: #48cae4;
+            --controls-bg: rgba(0, 0, 0, 0.5);
+            --progress-bg: rgba(255, 255, 255, 0.3);
+            --progress-filled: var(--glow-color);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--gradient-bg);
+            background-size: 200% 200%;
+            animation: gradientFlow 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .player-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .player-wrapper video {
+            width: 100%;
+            display: block;
+        }
+
+        .player-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .player-wrapper.paused video,
+        .player-wrapper:hover .player-controls {
+            opacity: 1;
+        }
+        
+        .controls-inner {
+            background: var(--controls-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--progress-bg);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: height 0.2s ease;
+        }
+        .progress-bar-container:hover {
+            height: 10px;
+        }
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: var(--progress-filled);
+            border-radius: 3px;
+            position: relative;
+        }
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(50%, -50%) scale(0);
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+        .progress-bar-container:hover .progress-bar::after {
+            transform: translate(50%, -50%) scale(1);
+        }
+
+        .bottom-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .left-controls, .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .control-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .control-button:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .control-button svg {
+            width: 28px;
+            height: 28px;
+            pointer-events: none;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+        }
+        
+        .time-display {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .playback-speed {
+            background: transparent;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            padding: 0.25rem 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .playback-speed:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .playback-speed option {
+            background: #023e8a;
+            color: white;
+            font-weight: 500;
+        }
+
+        .back-button { 
+            position: absolute; 
+            top: 2rem; 
+            left: 2rem; 
+            z-index: 10;
+            background-color: #0096c7;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <a href="examllb_timeline.html" class="back-button">← Back to Details</a>
+    <div class="player-wrapper" id="video-player-container">
+        <video id="project-video" src="llEX.mov" preload="metadata" muted></video>
+        
+        <div class="player-controls">
+            <div class="controls-inner">
+                <div class="progress-bar-container" id="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="bottom-controls">
+                    <div class="left-controls">
+                        <button class="control-button" id="play-pause-btn" title="Play/Pause (Space)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                        </button>
+                        <button class="control-button" id="rewind-btn" title="Rewind 5s (Left Arrow)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11.5 12l8.5 6V6m-9 12V6l-8.5 6l8.5 6z"/></svg>
+                        </button>
+                         <button class="control-button" id="forward-btn" title="Forward 5s (Right Arrow)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+                        </button>
+                    </div>
+                     <div class="right-controls">
+                        <div class="time-display" id="time-display">0:00 / 0:00</div>
+                        <select class="playback-speed" id="playback-speed-select" title="Playback Speed">
+                            <option value="0.75">0.75x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2">2x</option>
+                        </select>
+                        <button class="control-button" id="fullscreen-btn" title="Fullscreen (f)">
+                             <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playerWrapper = document.getElementById('video-player-container');
+            const video = document.getElementById('project-video');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const rewindBtn = document.getElementById('rewind-btn');
+            const forwardBtn = document.getElementById('forward-btn');
+            const progressBarContainer = document.getElementById('progress-bar-container');
+            const progressBar = document.getElementById('progress-bar');
+            const timeDisplay = document.getElementById('time-display');
+            const playbackSpeedSelect = document.getElementById('playback-speed-select');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+            const playIcon = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>`;
+            const pauseIcon = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
+            // Helper: Format time
+            const formatTime = (timeInSeconds) => {
+                const result = new Date(timeInSeconds * 1000).toISOString().substr(11, 8);
+                return {
+                    minutes: result.substr(3, 2),
+                    seconds: result.substr(6, 2),
+                };
+            };
+            
+            const initializeVideo = () => {
+                const videoDuration = Math.round(video.duration);
+                const time = formatTime(videoDuration);
+                timeDisplay.textContent = `0:00 / ${time.minutes}:${time.seconds}`;
+            };
+
+            const updateTime = () => {
+                const currentTime = Math.round(video.currentTime);
+                const duration = Math.round(video.duration);
+                const time = formatTime(currentTime);
+                const durationTime = formatTime(duration);
+                timeDisplay.textContent = `${time.minutes}:${time.seconds} / ${durationTime.minutes}:${durationTime.seconds}`;
+            };
+            
+            // Play/Pause
+            const togglePlay = () => video.paused ? video.play() : video.pause();
+            
+            video.addEventListener('play', () => {
+                playPauseBtn.innerHTML = pauseIcon;
+                playerWrapper.classList.remove('paused');
+            });
+            video.addEventListener('pause', () => {
+                playPauseBtn.innerHTML = playIcon;
+                playerWrapper.classList.add('paused');
+            });
+
+            // Skip
+            const skip = (duration) => video.currentTime += duration;
+
+            // Progress Bar
+            video.addEventListener('timeupdate', () => {
+                progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+                updateTime();
+            });
+
+            progressBarContainer.addEventListener('click', (e) => {
+                const rect = progressBarContainer.getBoundingClientRect();
+                const percent = Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
+                video.currentTime = percent * video.duration;
+            });
+
+            // Fullscreen
+            const toggleFullScreen = () => {
+                if (document.fullscreenElement == null) {
+                    playerWrapper.requestFullscreen().catch(err => alert(`Fullscreen not available: ${err.message}`));
+                } else {
+                    document.exitFullscreen();
+                }
+            };
+            
+            // Event Listeners
+            video.addEventListener('loadedmetadata', initializeVideo);
+            playPauseBtn.addEventListener('click', togglePlay);
+            video.addEventListener('click', togglePlay);
+            rewindBtn.addEventListener('click', () => skip(-5));
+            forwardBtn.addEventListener('click', () => skip(5));
+            fullscreenBtn.addEventListener('click', toggleFullScreen);
+            playbackSpeedSelect.addEventListener('change', () => video.playbackRate = playbackSpeedSelect.value);
+            
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', e => {
+                const tagName = document.activeElement.tagName.toLowerCase();
+                if (tagName === 'input' || tagName === 'select') return;
+                switch (e.key.toLowerCase()) {
+                    case " ": e.preventDefault(); togglePlay(); break;
+                    case "arrowleft": skip(-5); break;
+                    case "arrowright": skip(5); break;
+                    case "f": toggleFullScreen(); break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
