@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Bicycle BMS - Portfolio Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Font */
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+            /* Color Palette */
+            --gradient-bg: linear-gradient(135deg, #03045E, #023E8A, #0077B6, #0096C7);
+            --text-light: #caf0f8;
+            --text-dark-primary: #023e8a;
+            --text-dark-secondary: #0077b6;
+            --glow-color: #48cae4;
+            --card-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(202, 240, 248, 0.9));
+            --card-border: rgba(255, 255, 255, 0.4);
+            
+            /* Status Colors */
+            --status-completed-bg: #d1e7dd; 
+            --status-completed-text: #0f5132;
+
+            /* Animation */
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --duration-medium: 300ms;
+            --duration-slow: 500ms;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            background: var(--gradient-bg);
+            background-size: 200% 200%;
+            animation: gradientFlow 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .page-header { text-align: center; margin-bottom: 3rem; position: relative; padding-top: 4rem; }
+        .page-header h1 { font-size: 4rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(45deg, var(--text-light), var(--glow-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(72, 202, 228, 0.2); }
+        .page-header .subtitle { font-size: 1.3rem; font-weight: 500; opacity: 0.9; }
+        .page-header .status-badge { display: inline-block; background: rgba(0, 180, 216, 0.2); color: var(--glow-color); padding: 0.5rem 1.5rem; border-radius: 25px; font-size: 1rem; font-weight: 700; margin-top: 1rem; border: 1px solid var(--glow-color); }
+        
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+
+        .glass-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform var(--duration-medium) var(--ease-out-quint);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp var(--duration-slow) var(--ease-out-quint) forwards;
+        }
+
+        .glass-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; padding: 2px; background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 1; opacity: 0; transition: opacity var(--duration-medium) var(--ease-out-quint); }
+        .glass-card:hover { transform: translateY(-8px) scale(1.02); }
+        .glass-card:hover::before { opacity: 1; animation: spin 3s linear infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .main-content .glass-card:nth-of-type(1) { animation-delay: 100ms; }
+        .main-content .glass-card:nth-of-type(2) { animation-delay: 300ms; }
+        .main-content .glass-card:nth-of-type(3) { animation-delay: 500ms; }
+        .sidebar .glass-card:nth-of-type(1) { animation-delay: 200ms; }
+        .sidebar .glass-card:nth-of-type(2) { animation-delay: 400ms; }
+
+        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
+
+        .card-content { padding: 2.5rem; z-index: 2; }
+        .card-content h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark-primary); margin-bottom: 1.5rem; padding-bottom: 0.5rem; display: inline-block; position: relative; }
+        .card-content h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--glow-color); transform-origin: center; animation: pulseUnderline 3s ease-in-out infinite; }
+        @keyframes pulseUnderline { 0%, 100% { transform: scaleX(1); opacity: 0.8; } 50% { transform: scaleX(1.03); opacity: 1; } }
+
+        .card-content h3 { font-size: 1.6rem; font-weight: 700; color: var(--text-dark-primary); margin: 2.5rem 0 1.5rem 0; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .card-content h3:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+        
+        .card-content p, .card-content ul { font-size: 1rem; font-weight: 500; }
+        .card-content strong { font-weight: 700; color: var(--text-dark-primary); }
+        .card-content ul { list-style-type: none; padding-left: 0; }
+        .card-content li { margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative; }
+        
+        .tech-grid, .features-list { margin-top: 1.5rem; display: grid; gap: 1rem; }
+        .tech-grid { grid-template-columns: 1fr; }
+        .features-list { grid-template-columns: 1fr; }
+        
+        .tech-card, .feature-item { display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.6); padding: 1rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
+        .tech-icon, .feature-icon { flex-shrink: 0; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px; background-color: var(--text-dark-primary); color: var(--text-light); font-weight: 700; font-size: 1.2rem; }
+        .feature-icon { background-color: transparent; }
+        .feature-icon svg { width: 28px; height: 28px; fill: var(--text-dark-primary); }
+
+        .tech-card-text h4, .feature-item-text strong { color: var(--text-dark-primary); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; display: block; }
+        .tech-card-text p, .feature-item-text p { font-size: 0.9rem; line-height: 1.5; }
+        
+        .progress-section { margin-bottom: 1rem; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 700; color: var(--text-dark-primary); }
+        .progress-bar-container { width: 100%; background-color: rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; }
+        .progress-bar { width: 0; height: 12px; background: linear-gradient(90deg, var(--glow-color), #0096c7); border-radius: 10px; transition: width 1.5s var(--ease-out-quint); animation: pulseGlow 2s infinite ease-in-out; }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(72, 202, 228, 0.5); } 50% { box-shadow: 0 0 15px rgba(72, 202, 228, 0.8); } }
+
+        .goal-list { margin-top: 1rem; }
+        .goal-list li::before { content: ''; display: inline-block; width: 20px; height: 20px; position: absolute; left: 0; background-size: contain; background-repeat: no-repeat; }
+        .goal-item-status-done::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23023e8a"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'); }
+        
+        .goal-status-badge { display: inline-block; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.8rem; font-weight: 700; margin-left: 0.5rem; }
+        .status-completed { background: var(--status-completed-bg); color: var(--status-completed-text); }
+
+        .cta-button { display: inline-block; background-color: #0096c7; color: white; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 700; transition: transform 0.2s var(--ease-out-quint), background-color 0.2s var(--ease-out-quint); }
+        .cta-button:hover { background-color: var(--glow-color); color: var(--text-dark-primary); transform: scale(1.05); }
+        
+        .back-button { position: absolute; top: 2rem; left: 2rem; z-index: 10; }
+
+        @media(max-width: 900px){ .main-grid { grid-template-columns: 1fr; } }
+        @media(max-width:780px){ .page-header h1{font-size:2.8rem;} .card-content h2 {font-size: 1.8rem;} .back-button { position: static; display: block; text-align: center; margin-bottom: 2rem; width: fit-content; margin-left: auto; margin-right: auto; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="cta-button back-button">← Back to Portfolio</a>
+            <h1>Hybrid Bicycle BMS</h1>
+            <p class="subtitle">Smart Battery Management with Energy Recovery & Home Assistant Integration</p>
+            <div class="status-badge">Project Completed</div>
+        </header>
+
+        <div class="main-grid">
+            <main class="main-content">
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2>Project Overview</h2>
+                        <p>This project involved leading the software and electrical engineering efforts to develop a smart battery management system (BMS) and sensor network for a hybrid foot bicycle. We integrated <strong>ESP32 microcontrollers with Home Assistant</strong> for real-time control and automation. The key challenge was controlling the battery pack at the single-cell level to optimize energy recovery and overall system performance, a goal achieved within a 4-week timeframe.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card" id="goals-card">
+                    <div class="card-content">
+                        <h2>Project Milestones</h2>
+                        <div class="progress-section">
+                             <div class="progress-label">
+                                <span>Project Completion</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="project-progress-bar"></div>
+                            </div>
+                        </div>
+                        <h3>Core System Development <span class="goal-status-badge status-completed">Completed</span></h3>
+                        <ul class="goal-list">
+                            <li class="goal-item-status-done">Built a smart BMS controllable via Home Assistant</li>
+                            <li class="goal-item-status-done">Developed the main power I/O unit for energy management</li>
+                        </ul>
+                        <h3>Integration & Automation <span class="goal-status-badge status-completed">Completed</span></h3>
+                         <ul class="goal-list">
+                            <li class="goal-item-status-done">Connected and controlled additional sensors and units</li>
+                            <li class="goal-item-status-done">Created automation and advanced features in Home Assistant</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2>Implementation Details</h2>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-12h2v4h-2zm0 6h2v2h-2z"/></svg></div>
+                                <div class="feature-item-text"><strong>Smart BMS Control</strong><p>Cell-level battery monitoring and control integrated with Home Assistant for real-time adjustments and safety.</p></div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 10h-2v4h2v-4zm-4 0H7v4h2v-4zm8 0h-2v4h2v-4zm-2-8H9v3H7v2h2v2h2v-2h2v-2h-2V2zM7 18.11V16H5v4.24l1.41-1.41L9 21.34l4-4.01-1.41-1.41-2.59 2.59-2.59-2.58zM17 16v2.11l-2.59-2.59-1.41 1.41 4 4.01 2.59-2.59L21 20.24V16h-2z"/></svg></div>
+                                <div class="feature-item-text"><strong>Power I/O Unit</strong><p>Custom-built main power input/output unit to intelligently manage energy flow and optimize regenerative braking.</p></div>
+                            </div>
+                             <div class="feature-item">
+                                <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+                                <div class="feature-item-text"><strong>Home Assistant Dashboard</strong><p>Centralized control and monitoring of all system sensors and automation rules through a unified dashboard.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="glass-card">
+                    <div class="card-content">
+                        <h2>Technology Stack</h2>
+                        <div class="tech-grid">
+                            <div class="tech-card"><div class="tech-icon">E</div><div class="tech-card-text"><h4>ESP32</h4><p>Core microcontroller for sensors and actuators</p></div></div>
+                            <div class="tech-card"><div class="tech-icon">H</div><div class="tech-card-text"><h4>Home Assistant</h4><p>Central automation and control platform</p></div></div>
+                            <div class="tech-card"><div class="tech-icon">B</div><div class="tech-card-text"><h4>BMS Design</h4><p>Custom circuitry for battery management</p></div></div>
+                            <div class="tech-card"><div class="tech-icon">E</div><div class="tech-card-text"><h4>Electrical Engineering</h4><p>Circuit design and system wiring</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                     <div class="card-content">
+                        <h2>Documentation</h2>
+                        <p>View the full technical documentation, including circuit diagrams and system architecture.</p>
+                        <a href="https://drive.google.com/drive/folders/1heAXQmBy2pfMmih0XgvX3Xlm6lFQp2q4?usp=sharing" class="cta-button" style="display: block; text-align:center; margin-top: 1rem;" onclick="alert('Docs include:\n\n• System Architecture\n• Circuit Schematics\n• Home Assistant Configuration')">View Documents</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script>
+        // --- Animate Progress Bar on Scroll ---
+        const goalsCard = document.getElementById('goals-card');
+        const progressBar = document.getElementById('project-progress-bar');
+        const progressPercentEl = document.getElementById('progress-percent');
+        const targetPercent = 100; // Project is 100% complete
+
+        function animateCounter(el, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                el.innerText = Math.floor(progress * (end - start) + start) + '%';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    progressBar.style.width = targetPercent + '%';
+                    animateCounter(progressPercentEl, 0, targetPercent, 1500);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (goalsCard) {
+            observer.observe(goalsCard);
+        }
+    </script>
+</body>
+</html>
