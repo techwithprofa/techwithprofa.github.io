@@ -34,11 +34,7 @@
             padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1rem);
             margin: 0;
         }
-        @keyframes gradientFlow { 
-            0% { background-position: 0% 50%; } 
-            50% { background-position: 100% 50%; } 
-            100% { background-position: 0% 50%; } 
-        }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .container { max-width: 1400px; margin: 0 auto; width: 100%; }
         .page-header { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); position: relative; padding-top: clamp(2rem, 6vw, 4rem); }
         .page-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; background: linear-gradient(45deg, var(--text-light), var(--glow-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; line-height: 1.1; }
@@ -70,10 +66,75 @@
         .sidebar-content .glass-card:nth-of-type(1) { animation-delay: 200ms; }
         .sidebar-content .glass-card:nth-of-type(2) { animation-delay: 400ms; }
         @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
-        .card-content { padding: clamp(1.25rem, 4vw, 2.5rem); z-index: 2; height: 100%; display: flex; flex-direction: column; }
-        .card-content h2 { font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 800; color: var(--text-dark-primary); margin-bottom: clamp(1rem, 3vw, 1.5rem); padding-bottom: 0.5rem; display: inline-block; position: relative; }
-        .card-content h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--glow-color); transform-origin: center; animation: pulseUnderline 3s ease-in-out infinite; }
-        @keyframes pulseUnderline { 0%, 100% { transform: scaleX(1); opacity: 0.8; } 50% { transform: scaleX(1.03); opacity: 1; } }
+        .card-content { padding: clamp(1.25rem, 3vw, 2rem); z-index: 2; height: 100%; display: flex; flex-direction: column; }
+        .card-content h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; color: var(--text-dark-primary); margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0; padding-bottom: 0.5rem; display: inline-block; position: relative; }
+        
+        /* === NEW & IMPROVED ANALYSIS SECTION === */
+        .analysis-controls {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            padding: clamp(0.5rem, 1vw, 0.75rem);
+            background: rgba(0,0,0,0.02);
+            border-radius: 12px;
+        }
+        .chart-toggle-modern {
+            display: flex;
+            background-color: rgba(0,0,0,0.07);
+            border-radius: 25px;
+            padding: 5px;
+            position: relative;
+        }
+        .toggle-glider {
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            height: calc(100% - 10px);
+            background-color: white;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            transition: all 0.4s var(--ease-out-quint);
+        }
+        .toggle-button {
+            font-family: var(--font-family);
+            background: transparent;
+            border: none;
+            padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
+            border-radius: 25px;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            font-weight: 700;
+            color: var(--text-dark-secondary);
+            cursor: pointer;
+            transition: color 0.3s var(--ease-out-quint);
+            z-index: 1;
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .toggle-button.active { color: var(--text-dark-primary); }
+
+        .plant-selector { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 100px), 1fr)); 
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .plant-selector.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            max-height: 0;
+            overflow: hidden;
+            pointer-events: none;
+            margin-top: -1rem; /* Collapse margin */
+        }
+        .plant-button { background-color: rgba(255,255,255,0.4); color: var(--text-dark-secondary); border: 1px solid rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; font-size: clamp(0.7rem, 1.8vw, 0.85rem); }
+        .plant-button.active { background-color: var(--text-dark-primary); color: white; border-color: var(--text-dark-primary); }
+        .chart-view { display: none; }
+        .chart-view.active { display: block; flex-grow: 1; }
+        .chart-container { flex-grow: 1; min-height: 350px; }
+        /* === END OF NEW SECTION === */
+
         .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 25vw, 140px), 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); }
         .metric-card { background: rgba(255,255,255,0.5); border-radius: clamp(10px, 2vw, 15px); padding: clamp(1rem, 3vw, 1.5rem); text-align: center; }
         .metric-card .value { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-dark-primary); line-height: 1; margin-bottom: 0.25rem; }
@@ -84,15 +145,6 @@
         .achievement-icon svg { width: clamp(20px, 4vw, 28px); height: clamp(20px, 4vw, 28px); }
         .achievement-text strong { color: var(--text-dark-primary); font-size: clamp(0.85rem, 2.2vw, 1.1rem); font-weight: 700; display: block; line-height: 1.3; }
         .achievement-text p { font-size: clamp(0.75rem, 2vw, 0.9rem); line-height: 1.4; margin: 0.25rem 0 0 0; }
-        .analysis-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: clamp(0.75rem, 2vw, 1rem); margin-bottom: clamp(1rem, 3vw, 1.5rem); }
-        .chart-toggle { background-color: rgba(255,255,255,0.2); border-radius: 25px; padding: clamp(0.2rem, 0.5vw, 0.25rem); display: inline-flex; gap: clamp(0.2rem, 0.5vw, 0.25rem); }
-        .toggle-button { font-family: var(--font-family); background: transparent; border: none; padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem); border-radius: 25px; font-size: clamp(0.75rem, 2vw, 0.9rem); font-weight: 700; color: var(--text-dark-secondary); cursor: pointer; transition: all 0.3s var(--ease-out-quint); }
-        .toggle-button.active { background-color: white; color: var(--text-dark-primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .plant-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 120px), 1fr)); gap: clamp(0.3rem, 1vw, 0.5rem); margin-bottom: clamp(1rem, 3vw, 1.5rem); }
-        .plant-button { background-color: rgba(0,0,0,0.05); color: var(--text-dark-secondary); border: 1px solid transparent; padding: clamp(0.5rem, 1.5vw, 0.75rem); border-radius: clamp(6px, 1.5vw, 8px); font-weight: 700; cursor: pointer; text-align: center; transition: all 0.2s; font-size: clamp(0.7rem, 1.8vw, 0.9rem); }
-        .plant-button.active { background-color: var(--text-dark-primary); color: white; }
-        .chart-view { display: none; }
-        .chart-view.active { display: block; }
         .table-container { flex-grow: 1; overflow: auto; max-height: clamp(300px, 50vh, 400px); }
         .performance-table { width: 100%; border-collapse: collapse; font-family: var(--font-family); font-size: clamp(0.75rem, 1.8vw, 0.9rem); }
         .performance-table th, .performance-table td { padding: clamp(0.4rem, 1.2vw, 0.75rem) clamp(0.6rem, 1.8vw, 1rem); text-align: left; border-bottom: 1px solid rgba(0,0,0,0.1); }
@@ -105,11 +157,9 @@
         .cta-button:hover { background-color: var(--text-dark-primary); transform: translateY(-2px); }
         .back-button { position: absolute; top: clamp(1rem, 3vw, 2rem); left: clamp(1rem, 3vw, 2rem); z-index: 10; }
         @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(1rem, 2.5vw, 1.5rem); } }
-        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; } .page-header { padding-top: clamp(1.5rem, 4vw, 2rem); } .analysis-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; } .chart-toggle { align-self: stretch; } .toggle-button { flex: 1; text-align: center; } }
-        @media (max-width: 600px) { body { padding: 0.5rem; } .glass-card { margin-bottom: 0.75rem; min-height: clamp(250px, 35vh, 300px); } .metric-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; } .plant-selector { grid-template-columns: repeat(4, 1fr); gap: 0.25rem; } .achievement-item { flex-direction: row; align-items: center; gap: 0.5rem; } .achievement-icon { width: 28px; height: 28px; } .achievement-icon svg { width: 18px; height: 18px; } }
-        @media (max-width: 400px) { .plant-selector { grid-template-columns: repeat(3, 1fr); } .metric-grid { grid-template-columns: 1fr; gap: 0.5rem; } .performance-table { font-size: 0.7rem; } .performance-table th, .performance-table td { padding: 0.3rem 0.4rem; } }
-        .chart-view canvas { width: 100% !important; height: 300px !important; max-height: 400px; }
-        @media (max-width: 600px) { .chart-view canvas { height: 250px !important; } }
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; } .page-header { padding-top: clamp(4rem, 4vw, 2rem); } }
+        @media (max-width: 600px) { body { padding: 0.5rem; } .glass-card { margin-bottom: 0.75rem; min-height: clamp(250px, 35vh, 300px); } .metric-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; } .achievement-item { flex-direction: row; align-items: center; gap: 0.5rem; } .achievement-icon { width: 28px; height: 28px; } .achievement-icon svg { width: 18px; height: 18px; } }
+        .chart-view canvas { width: 100% !important; height: 100% !important; }
     </style>
 </head>
 <body>
@@ -124,25 +174,27 @@
             <div class="main-content">
                  <div class="glass-card">
                      <div class="card-content">
-                        <div class="analysis-header">
-                            <h2>Growth Analysis</h2>
-                            <div class="chart-toggle" id="chart-toggle-container">
+                        <h2>Growth Analysis</h2>
+                        <div class="analysis-controls">
+                            <div class="chart-toggle-modern" id="chart-toggle-container">
+                                <div class="toggle-glider"></div>
                                 <button class="toggle-button active" data-chart="timeline">Timeline</button>
                                 <button class="toggle-button" data-chart="comparison">Comparison</button>
                                 <button class="toggle-button" data-chart="branches">Branches</button>
+                                <button class="toggle-button" data-chart="growthRate">Rate</button>
+                                <button class="toggle-button" data-chart="correlation">Correlation</button>
+                            </div>
+                            <div class="plant-selector" id="plant-selector-container">
+                                <!-- Plant selector buttons will be generated here -->
                             </div>
                         </div>
                         
-                        <div id="view-timeline" class="chart-view active">
-                            <div class="plant-selector" id="plant-selector-container"></div>
-                            <canvas id="growthChart"></canvas>
-                        </div>
-
-                        <div id="view-comparison" class="chart-view">
-                            <canvas id="comparisonChart"></canvas>
-                        </div>
-                        <div id="view-branches" class="chart-view">
-                            <canvas id="branchChart"></canvas>
+                        <div class="chart-container">
+                            <div id="view-timeline" class="chart-view active"><canvas id="growthChart"></canvas></div>
+                            <div id="view-comparison" class="chart-view"><canvas id="comparisonChart"></canvas></div>
+                            <div id="view-branches" class="chart-view"><canvas id="branchChart"></canvas></div>
+                            <div id="view-growthRate" class="chart-view"><canvas id="growthRateChart"></canvas></div>
+                            <div id="view-correlation" class="chart-view"><canvas id="correlationChart"></canvas></div>
                         </div>
                      </div>
                 </div>
@@ -152,12 +204,7 @@
                         <div class="table-container">
                             <table class="performance-table">
                                 <thead>
-                                    <tr>
-                                        <th>Plant No.</th>
-                                        <th>Initial (cm)</th>
-                                        <th>Final (cm)</th>
-                                        <th>Growth</th>
-                                    </tr>
+                                    <tr><th>Plant No.</th><th>Initial (cm)</th><th>Final (cm)</th><th>Growth</th></tr>
                                 </thead>
                                 <tbody id="performance-table-body"></tbody>
                             </table>
@@ -170,22 +217,10 @@
                     <div class="card-content">
                         <h2>Key Metrics</h2>
                         <div class="metric-grid">
-                            <div class="metric-card">
-                                <div class="value"><span id="metric-max-size">0</span> cm</div>
-                                <div class="label">Flagship Plant (#2)</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="value"><span id="metric-avg-size">0</span> cm</div>
-                                <div class="label">System Average Height</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="value">45%+</div>
-                                <div class="label">Sustained Weekly Growth</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="value" id="metric-days">0</div>
-                                <div class="label">Days Running</div>
-                            </div>
+                            <div class="metric-card"><div class="value"><span id="metric-max-size">0</span> cm</div><div class="label">Flagship Plant (#2)</div></div>
+                            <div class="metric-card"><div class="value"><span id="metric-avg-size">0</span> cm</div><div class="label">System Average Height</div></div>
+                            <div class="metric-card"><div class="value">45%+</div><div class="label">Sustained Weekly Growth</div></div>
+                            <div class="metric-card"><div class="value" id="metric-days">0</div><div class="label">Days Running</div></div>
                         </div>
                     </div>
                 </div>
@@ -193,18 +228,9 @@
                     <div class="card-content">
                         <h2>Key Achievements</h2>
                         <ul class="achievement-list">
-                            <li class="achievement-item">
-                                <div class="achievement-icon" style="color: #10b981"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
-                                <div class="achievement-text"><strong>Exceptional Growth</strong><p>Sustained 45%+ weekly growth rate.</p></div>
-                            </li>
-                             <li class="achievement-item">
-                                <div class="achievement-icon" style="color: #8b5cf6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-                                <div class="achievement-text"><strong>Zero Deficiencies</strong><p>40+ consecutive days with no nutrient issues.</p></div>
-                            </li>
-                             <li class="achievement-item">
-                                <div class="achievement-icon" style="color: #f59e0b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
-                                <div class="achievement-text"><strong>Accelerated Flowering</strong><p>First branching in 5 weeks vs. 16 in soil.</p></div>
-                            </li>
+                            <li class="achievement-item"><div class="achievement-icon" style="color: #10b981"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div><div class="achievement-text"><strong>Exceptional Growth</strong><p>Sustained 45%+ weekly growth rate.</p></div></li>
+                            <li class="achievement-item"><div class="achievement-icon" style="color: #8b5cf6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-l-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="achievement-text"><strong>Zero Deficiencies</strong><p>40+ consecutive days with no nutrient issues.</p></div></li>
+                            <li class="achievement-item"><div class="achievement-icon" style="color: #f59e0b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="achievement-text"><strong>Accelerated Flowering</strong><p>First branching in 5 weeks vs. 16 in soil.</p></div></li>
                         </ul>
                     </div>
                 </div>
@@ -215,19 +241,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Fetch and parse the JSON data
             fetch('hydroponic_data.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    // This one line does all the parsing!
-                    return response.json(); 
-                })
-                .then(rawData => {
-                    // The data is already a perfect JavaScript array of objects
-                    initializeDashboard(rawData);
-                })
+                .then(response => { if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } return response.json(); })
+                .then(rawData => { initializeDashboard(rawData); })
                 .catch(error => {
                     console.error('Error loading or parsing JSON data:', error);
                     alert('Failed to load plant data. Please ensure hydroponic_data.json is in the same directory and is accessible.');
@@ -235,7 +251,7 @@
 
             function initializeDashboard(rawData) {
                 let selectedPlants = [2, 7, 9];
-                let growthChartInstance, comparisonChartInstance, branchChartInstance;
+                let chartInstances = {};
                 let activeChart = 'timeline';
 
                 const LATEST_DATE = '2025/9/18';
@@ -250,7 +266,7 @@
                 const latestDataAll = rawData.filter(d => d.date === LATEST_DATE);
                 const avgSize = 47.4; 
                 const maxSize = Math.max(...latestDataAll.map(p => p.size));
-                const daysRunning = Math.floor((new Date(LATEST_DATE).getTime() - new Date(START_DATE).getTime()) / (1000 * 60 * 60 * 24));
+                const daysRunning = getDayNumber(LATEST_DATE);
                 
                 const plantSelectorContainer = document.getElementById('plant-selector-container');
                 const performanceTableBody = document.getElementById('performance-table-body');
@@ -275,179 +291,157 @@
 
                 function renderPerformanceTable() {
                     performanceTableBody.innerHTML = '';
-                    const firstDate = START_DATE;
                     for(let i = 1; i <= 16; i++) {
-                        const initial = rawData.find(d => d.date === firstDate && d.plantNo === i);
-                        const plantData = rawData.filter(d => d.plantNo === i).sort((a,b) => new Date(b.date) - new Date(a.date));
-                        const final = plantData[0]; 
-
+                        const initial = rawData.find(d => d.date === START_DATE && d.plantNo === i);
+                        const final = rawData.find(d => d.date === LATEST_DATE && d.plantNo === i);
                         if(!initial || !final) continue;
 
                         const growth = ((final.size - initial.size) / initial.size * 100).toFixed(1);
                         const row = document.createElement('tr');
-                        if(i === 2 || i === 7 || i === 9) row.className = 'flagship-row';
-                        row.innerHTML = `
-                            <td><strong>#${i}</strong></td>
-                            <td>${initial.size}</td>
-                            <td>${final.size}</td>
-                            <td class="growth-positive">+${growth}%</td>
-                        `;
+                        if([2, 7, 9].includes(i)) row.className = 'flagship-row';
+                        row.innerHTML = `<td><strong>#${i}</strong></td><td>${initial.size}</td><td>${final.size}</td><td class="growth-positive">+${growth}%</td>`;
                         performanceTableBody.appendChild(row);
                     }
                 }
+                
+                const tooltipStyles = {
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    borderWidth: 1,
+                    titleColor: '#023e8a',
+                    bodyColor: '#0077b6',
+                    padding: 12,
+                    cornerRadius: 10,
+                    titleFont: { weight: '700', size: 14 },
+                    bodyFont: { weight: '500', size: 13 }
+                };
+                
+                Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+                Chart.defaults.color = '#0077b6';
+                Chart.defaults.font.weight = '500';
+                const chartColors = ['#00b4d8', '#48cae4', '#90e0ef', '#0077b6', '#023e8a'];
+                const dates = [...new Set(rawData.map(d => d.date))].sort((a,b) => new Date(a) - new Date(b));
+                
+                function destroyAllCharts() {
+                    Object.values(chartInstances).forEach(chart => chart.destroy());
+                    chartInstances = {};
+                }
+
+                function renderTimelineChart(type) {
+                    const ctx = document.getElementById(type === 'height' ? 'growthChart' : 'branchChart').getContext('2d');
+                    const yAxisLabel = type === 'height' ? 'Height (cm)' : 'Branch Count';
+                    
+                    const datasets = selectedPlants.map((plantNo, index) => {
+                        const color = chartColors[index % chartColors.length];
+                        const plantData = dates.map(date => {
+                            const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
+                            return dataPoint ? dataPoint[type === 'height' ? 'size' : 'branches'] : null;
+                        });
+                        return { label: `Plant #${plantNo}`, data: plantData, borderColor: color, backgroundColor: color + '20', tension: 0.3, borderWidth: 3, pointRadius: 5, pointBackgroundColor: color, pointBorderColor: 'white', pointBorderWidth: 2, spanGaps: true, fill: false };
+                    });
+
+                    chartInstances[activeChart] = new Chart(ctx, { 
+                        type: 'line', 
+                        data: { labels: dates.map(d => `Day ${getDayNumber(d)}`), datasets }, 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: yAxisLabel, color: '#023e8a', font: { weight: '700' } } }, x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } } }, interaction: { intersect: false, mode: 'index' }, plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true } } } }
+                    });
+                }
+
+                function renderComparisonChart() {
+                    const ctx = document.getElementById('comparisonChart').getContext('2d');
+                    const sortedData = [...latestDataAll].sort((a,b) => b.size - a.size);
+                    
+                    chartInstances.comparison = new Chart(ctx, { 
+                        type: 'bar', 
+                        data: { 
+                            labels: sortedData.map(d => `#${d.plantNo}`), 
+                            datasets: [{ label: 'Final Height (cm)', data: sortedData.map(d => d.size), backgroundColor: sortedData.map(d => [2, 7, 9].includes(d.plantNo) ? '#00b4d8' : '#90e0ef'), borderRadius: 6 }] 
+                        }, 
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700' } } } }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyles } } }
+                    });
+                }
+
+                function renderGrowthRateChart() {
+                    const ctx = document.getElementById('growthRateChart').getContext('2d');
+                    const rateLabels = [];
+                    for (let i = 0; i < dates.length - 1; i++) {
+                        rateLabels.push(`D${getDayNumber(dates[i])}-${getDayNumber(dates[i+1])}`);
+                    }
+                    
+                    const datasets = selectedPlants.map((plantNo, index) => {
+                        const color = chartColors[index % chartColors.length];
+                        const plantData = rawData.filter(p => p.plantNo === plantNo).sort((a, b) => new Date(a.date) - new Date(b.date));
+                        const growthRates = [];
+                        for (let i = 0; i < plantData.length - 1; i++) {
+                            if (plantData[i].size > 0) {
+                                const rate = ((plantData[i+1].size - plantData[i].size) / plantData[i].size) * 100;
+                                growthRates.push(rate);
+                            } else {
+                                growthRates.push(0);
+                            }
+                        }
+                        return { label: `Plant #${plantNo}`, data: growthRates, backgroundColor: color, borderRadius: 4 };
+                    });
+
+                    chartInstances.growthRate = new Chart(ctx, {
+                        type: 'bar',
+                        data: { labels: rateLabels, datasets },
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Growth Rate (%)', color: '#023e8a', font: { weight: '700' } } } }, plugins: { tooltip: { ...tooltipStyles, callbacks: { label: (c) => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } } } }
+                    });
+                }
+                
+                function renderCorrelationChart() {
+                    const ctx = document.getElementById('correlationChart').getContext('2d');
+                    const scatterData = latestDataAll.map(d => ({ x: d.size, y: d.branches, plantNo: d.plantNo }));
+                    
+                    chartInstances.correlation = new Chart(ctx, {
+                        type: 'scatter',
+                        data: {
+                            datasets: [{
+                                label: 'Plant Performance',
+                                data: scatterData,
+                                backgroundColor: scatterData.map(d => [2,7,9].includes(d.plantNo) ? '#0077b6' : '#48cae4'),
+                                pointRadius: 7,
+                                pointHoverRadius: 10
+                            }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', title: { display: true, text: 'Final Height (cm)', color: '#023e8a', font: { weight: '700' } } }, y: { title: { display: true, text: 'Final Branch Count', color: '#023e8a', font: { weight: '700' } } } }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyles, callbacks: { label: (c) => `Plant #${c.raw.plantNo}: ${c.raw.y} branches at ${c.raw.x} cm` } } } }
+                    });
+                }
 
                 function renderCharts() {
-                    if (growthChartInstance) growthChartInstance.destroy();
-                    if (comparisonChartInstance) comparisonChartInstance.destroy();
-                    if (branchChartInstance) branchChartInstance.destroy();
-
+                    destroyAllCharts();
                     document.querySelectorAll('.chart-view').forEach(c => c.classList.remove('active'));
+                    document.getElementById(`view-${activeChart}`).classList.add('active');
                     
-                    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-                    Chart.defaults.color = '#0077b6';
-                    Chart.defaults.font.weight = '500';
-                    
-                    const tooltipStyles = {
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        backdropFilter: 'blur(10px)',
-                        borderColor: 'rgba(255, 255, 255, 0.4)',
-                        borderWidth: 1,
-                        titleColor: '#023e8a',
-                        bodyColor: '#0077b6',
-                        padding: 12,
-                        cornerRadius: 10,
-                        titleFont: { weight: '700', size: 14 },
-                        bodyFont: { weight: '500', size: 13 }
-                    };
+                    // Show/hide plant selector based on chart type
+                    const selectorNeedsPlants = ['timeline', 'branches', 'growthRate'];
+                    plantSelectorContainer.classList.toggle('hidden', !selectorNeedsPlants.includes(activeChart));
 
-                    const dates = [...new Set(rawData.map(d => d.date))].sort((a,b) => new Date(a).getTime() - new Date(b).getTime());
-                    const labels = dates.map(date => {
-                        const dayNum = getDayNumber(date);
-                        const dateObj = new Date(date);
-                        return `Day ${dayNum} (${dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
-                    });
-                    const chartColors = ['#00b4d8', '#48cae4', '#90e0ef', '#0077b6', '#023e8a'];
-
-                    if (activeChart === 'timeline') {
-                        document.getElementById('view-timeline').classList.add('active');
-                        const ctx = document.getElementById('growthChart').getContext('2d');
-                        
-                        const datasets = selectedPlants.map((plantNo, index) => {
-                            const color = chartColors[index % chartColors.length];
-                            const plantData = dates.map(date => {
-                                const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
-                                return dataPoint ? dataPoint.size : null;
-                            });
-
-                            return {
-                                label: `Plant #${plantNo}`,
-                                data: plantData,
-                                borderColor: color,
-                                backgroundColor: color + '20',
-                                tension: 0.3,
-                                borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 3,
-                                pointRadius: (plantNo === 2 || plantNo === 9) ? 6 : 5,
-                                pointBackgroundColor: color,
-                                pointBorderColor: 'white',
-                                pointBorderWidth: 2,
-                                spanGaps: true,
-                                fill: false
-                            };
-                        });
-
-                        growthChartInstance = new Chart(ctx, { 
-                            type: 'line', 
-                            data: { labels, datasets }, 
-                            options: { 
-                                responsive: true, maintainAspectRatio: false,
-                                scales: { 
-                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700', size: 14 } } },
-                                    x: { grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
-                                }, 
-                                interaction: { intersect: false, mode: 'index' }, 
-                                plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true, color: '#023e8a', font: { weight: '600' }, padding: 15 } } },
-                                elements: { line: { tension: 0.3 }, point: { hoverRadius: 8 } }
-                            }
-                        });
-
-                    } else if (activeChart === 'comparison') {
-                        document.getElementById('view-comparison').classList.add('active');
-                        const ctx = document.getElementById('comparisonChart').getContext('2d');
-                        const finalData = latestDataAll;
-                        
-                        const labels = finalData.map(d => `Plant #${d.plantNo}`);
-                        const data = finalData.map(d => d.size);
-                        const backgroundColors = finalData.map(d => (d.plantNo === 2 || d.plantNo === 9 || d.plantNo === 7) ? '#48cae4' : d.size > 50 ? '#00b4d8' : d.size > 30 ? '#0077b6' : '#90e0ef');
-                        
-                        comparisonChartInstance = new Chart(ctx, { 
-                            type: 'bar', 
-                            data: { labels, datasets: [{ label: 'Current Height (cm)', data, backgroundColor: backgroundColors, borderColor: backgroundColors.map(c => c.replace('ef', 'cc')), borderWidth: 2, borderRadius: 8, borderSkipped: false }] }, 
-                            options: { 
-                                responsive: true, maintainAspectRatio: false,
-                                scales: { 
-                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700', size: 14 } } },
-                                    x: { grid: { display: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
-                                }, 
-                                plugins: { legend: { display: false }, tooltip: { ...tooltipStyles, callbacks: { title: (c) => c[0].label, label: (c) => `Height: ${c.parsed.y} cm` } } },
-                                elements: { bar: { borderWidth: 2 } }
-                            }
-                        });
-
-                    } else if (activeChart === 'branches') {
-                        document.getElementById('view-branches').classList.add('active');
-                        const ctx = document.getElementById('branchChart').getContext('2d');
-
-                        const datasets = selectedPlants.map((plantNo, index) => {
-                            const color = chartColors[index % chartColors.length];
-                            const branchData = dates.map(date => {
-                                const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
-                                return dataPoint ? dataPoint.branches : null;
-                            });
-
-                            return {
-                                label: `Plant #${plantNo}`,
-                                data: branchData,
-                                borderColor: color,
-                                backgroundColor: color + '20',
-                                tension: 0.3,
-                                borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 3,
-                                pointRadius: (plantNo === 2 || plantNo === 9) ? 6 : 5,
-                                pointBackgroundColor: color,
-                                pointBorderColor: 'white',
-                                pointBorderWidth: 2,
-                                spanGaps: true,
-                                fill: false
-                            };
-                        });
-
-                        branchChartInstance = new Chart(ctx, {
-                            type: 'line',
-                            data: { labels, datasets },
-                            options: {
-                                responsive: true, maintainAspectRatio: false,
-                                scales: {
-                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Branch Count', color: '#023e8a', font: { weight: '700', size: 14 } } },
-                                    x: { grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
-                                },
-                                interaction: { intersect: false, mode: 'index' },
-                                plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true, color: '#023e8a', font: { weight: '600' }, padding: 15 } } },
-                                elements: { line: { tension: 0.3 }, point: { hoverRadius: 8 } }
-                            }
-                        });
+                    switch(activeChart) {
+                        case 'timeline': renderTimelineChart('height'); break;
+                        case 'comparison': renderComparisonChart(); break;
+                        case 'branches': renderTimelineChart('branches'); break;
+                        case 'growthRate': renderGrowthRateChart(); break;
+                        case 'correlation': renderCorrelationChart(); break;
                     }
-
-                    setTimeout(() => {
-                        if (growthChartInstance) growthChartInstance.resize();
-                        if (comparisonChartInstance) comparisonChartInstance.resize();
-                        if (branchChartInstance) branchChartInstance.resize();
-                    }, 100);
                 }
                 
                 chartToggleContainer.addEventListener('click', (e) => {
                     if (e.target.matches('.toggle-button')) {
-                        activeChart = e.target.dataset.chart;
-                        chartToggleContainer.querySelectorAll('.toggle-button').forEach(btn => btn.classList.remove('active'));
-                        e.target.classList.add('active');
+                        const clickedButton = e.target;
+                        activeChart = clickedButton.dataset.chart;
+                        
+                        // Update active button class
+                        chartToggleContainer.querySelector('.toggle-button.active').classList.remove('active');
+                        clickedButton.classList.add('active');
+                        
+                        // Animate glider
+                        const glider = chartToggleContainer.querySelector('.toggle-glider');
+                        glider.style.width = `${clickedButton.offsetWidth}px`;
+                        glider.style.transform = `translateX(${clickedButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
+                        
                         renderCharts();
                     }
                 });
@@ -456,36 +450,32 @@
                     if(e.target.matches('.plant-button')) {
                         const plantNo = parseInt(e.target.dataset.plantNo);
                         if (selectedPlants.includes(plantNo)) {
-                            if (selectedPlants.length > 1) {
-                                selectedPlants = selectedPlants.filter(p => p !== plantNo);
-                            }
+                            if (selectedPlants.length > 1) selectedPlants = selectedPlants.filter(p => p !== plantNo);
                         } else {
-                            if (selectedPlants.length < 5) {
-                                selectedPlants.push(plantNo);
-                            }
+                            if (selectedPlants.length < 5) selectedPlants.push(plantNo);
                         }
                         renderPlantSelector();
                         renderCharts();
                     }
                 });
 
-                try {
-                    renderMetrics();
-                    renderPlantSelector();
-                    renderPerformanceTable();
-                    renderCharts();
-                } catch (error) {
-                    console.error('Dashboard initialization error:', error);
-                }
+                // Initial setup
+                renderMetrics();
+                renderPlantSelector();
+                renderPerformanceTable();
                 
-                let resizeTimeout;
+                // Set initial glider position
+                const initialActiveButton = chartToggleContainer.querySelector('.toggle-button.active');
+                const glider = chartToggleContainer.querySelector('.toggle-glider');
+                glider.style.width = `${initialActiveButton.offsetWidth}px`;
+                glider.style.transform = `translateX(${initialActiveButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
+                
+                renderCharts();
+                
                 window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
-                        if (growthChartInstance) growthChartInstance.resize();
-                        if (comparisonChartInstance) comparisonChartInstance.resize();
-                        if (branchChartInstance) branchChartInstance.resize();
-                    }, 250);
+                    const activeButton = chartToggleContainer.querySelector('.toggle-button.active');
+                    glider.style.width = `${activeButton.offsetWidth}px`;
+                    glider.style.transform = `translateX(${activeButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
                 });
             }
         });
