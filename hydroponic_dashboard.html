@@ -22,9 +22,7 @@
             --duration-medium: 300ms;
             --duration-slow: 500ms;
         }
-        
         * { box-sizing: border-box; }
-        
         body {
             font-family: var(--font-family);
             line-height: 1.7;
@@ -36,48 +34,16 @@
             padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1rem);
             margin: 0;
         }
-        
         @keyframes gradientFlow { 
             0% { background-position: 0% 50%; } 
             50% { background-position: 100% 50%; } 
             100% { background-position: 0% 50%; } 
         }
-        
-        .container { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            width: 100%;
-        }
-        
-        .page-header { 
-            text-align: center; 
-            margin-bottom: clamp(2rem, 4vw, 3rem); 
-            position: relative; 
-            padding-top: clamp(2rem, 6vw, 4rem);
-        }
-        
-        .page-header h1 { 
-            font-size: clamp(2.5rem, 6vw, 4rem); 
-            font-weight: 800; 
-            background: linear-gradient(45deg, var(--text-light), var(--glow-color)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.1;
-        }
-        
-        .page-header .subtitle { 
-            font-size: clamp(1rem, 2.5vw, 1.3rem); 
-            font-weight: 500; 
-            opacity: 0.9; 
-        }
-        
-        .dashboard-grid { 
-            display: grid; 
-            grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); 
-            gap: clamp(1rem, 3vw, 2rem); 
-        }
-
+        .container { max-width: 1400px; margin: 0 auto; width: 100%; }
+        .page-header { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); position: relative; padding-top: clamp(2rem, 6vw, 4rem); }
+        .page-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; background: linear-gradient(45deg, var(--text-light), var(--glow-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; line-height: 1.1; }
+        .page-header .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 500; opacity: 0.9; }
+        .dashboard-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); }
         .glass-card {
             background: var(--card-bg);
             border-radius: clamp(15px, 3vw, 20px);
@@ -95,391 +61,55 @@
             animation: slideInUp var(--duration-slow) var(--ease-out-quint) forwards;
             min-height: clamp(300px, 40vh, 400px);
         }
-        
-        .glass-card::before { 
-            content: ""; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border-radius: inherit; 
-            padding: 2px; 
-            background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color)); 
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); 
-            -webkit-mask-composite: xor; 
-            mask-composite: exclude; 
-            z-index: 1; 
-            opacity: 0; 
-            transition: opacity var(--duration-medium) var(--ease-out-quint); 
-        }
-        
-        .glass-card:hover { 
-            transform: translateY(-4px) scale(1.01); 
-        }
-        
-        .glass-card:hover::before { 
-            opacity: 1; 
-            animation: spin 3s linear infinite; 
-        }
-        
+        .glass-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit; padding: 2px; background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 1; opacity: 0; transition: opacity var(--duration-medium) var(--ease-out-quint); }
+        .glass-card:hover { transform: translateY(-4px) scale(1.01); }
+        .glass-card:hover::before { opacity: 1; animation: spin 3s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
         .main-content .glass-card:nth-of-type(1) { animation-delay: 100ms; }
         .main-content .glass-card:nth-of-type(2) { animation-delay: 300ms; }
         .sidebar-content .glass-card:nth-of-type(1) { animation-delay: 200ms; }
         .sidebar-content .glass-card:nth-of-type(2) { animation-delay: 400ms; }
-
         @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
-
-        .card-content { 
-            padding: clamp(1.25rem, 4vw, 2.5rem); 
-            z-index: 2; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        
-        .card-content h2 { 
-            font-size: clamp(1.4rem, 4vw, 2.2rem); 
-            font-weight: 800; 
-            color: var(--text-dark-primary); 
-            margin-bottom: clamp(1rem, 3vw, 1.5rem); 
-            padding-bottom: 0.5rem; 
-            display: inline-block; 
-            position: relative; 
-        }
-        
-        .card-content h2::after { 
-            content: ''; 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 2px; 
-            background: var(--glow-color); 
-            transform-origin: center; 
-            animation: pulseUnderline 3s ease-in-out infinite; 
-        }
-        
-        @keyframes pulseUnderline { 
-            0%, 100% { transform: scaleX(1); opacity: 0.8; } 
-            50% { transform: scaleX(1.03); opacity: 1; } 
-        }
-        
-        .metric-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 25vw, 140px), 1fr)); 
-            gap: clamp(0.75rem, 2vw, 1.5rem); 
-        }
-        
-        .metric-card { 
-            background: rgba(255,255,255,0.5); 
-            border-radius: clamp(10px, 2vw, 15px); 
-            padding: clamp(1rem, 3vw, 1.5rem); 
-            text-align: center; 
-        }
-        
-        .metric-card .value { 
-            font-size: clamp(1.5rem, 4vw, 2.5rem); 
-            font-weight: 800; 
-            color: var(--text-dark-primary); 
-            line-height: 1; 
-            margin-bottom: 0.25rem; 
-        }
-        
-        .metric-card .label { 
-            font-size: clamp(0.75rem, 2.2vw, 1rem); 
-            font-weight: 500; 
-            line-height: 1.3;
-        }
-        
-        .achievement-list { 
-            list-style-type: none; 
-            padding-left: 0; 
-            margin-top: clamp(1rem, 3vw, 1.5rem); 
-        }
-        
-        .achievement-item { 
-            display: flex; 
-            align-items: flex-start; 
-            gap: clamp(0.75rem, 2vw, 1rem); 
-            background: rgba(255,255,255,0.6); 
-            padding: clamp(0.75rem, 2vw, 1rem); 
-            border-radius: clamp(8px, 2vw, 12px); 
-            margin-bottom: clamp(0.75rem, 2vw, 1rem); 
-        }
-        
-        .achievement-icon { 
-            flex-shrink: 0; 
-            width: clamp(32px, 6vw, 40px); 
-            height: clamp(32px, 6vw, 40px); 
-            display: grid; 
-            place-items: center; 
-            border-radius: clamp(6px, 1.5vw, 8px); 
-        }
-        
-        .achievement-icon svg { 
-            width: clamp(20px, 4vw, 28px); 
-            height: clamp(20px, 4vw, 28px); 
-        }
-        
-        .achievement-text strong { 
-            color: var(--text-dark-primary); 
-            font-size: clamp(0.85rem, 2.2vw, 1.1rem); 
-            font-weight: 700; 
-            display: block; 
-            line-height: 1.3;
-        }
-        
-        .achievement-text p { 
-            font-size: clamp(0.75rem, 2vw, 0.9rem); 
-            line-height: 1.4; 
-            margin: 0.25rem 0 0 0;
-        }
-        
-        .analysis-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            gap: clamp(0.75rem, 2vw, 1rem); 
-            margin-bottom: clamp(1rem, 3vw, 1.5rem); 
-        }
-        
-        .chart-toggle { 
-            background-color: rgba(0,0,0,0.05); 
-            border-radius: clamp(6px, 1.5vw, 8px); 
-            padding: clamp(0.2rem, 0.5vw, 0.25rem); 
-            display: inline-flex; 
-            gap: clamp(0.2rem, 0.5vw, 0.25rem); 
-        }
-        
-        .toggle-button { 
-            font-family: var(--font-family); 
-            background: transparent; 
-            border: none; 
-            padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem); 
-            border-radius: clamp(4px, 1vw, 6px); 
-            font-size: clamp(0.75rem, 2vw, 0.9rem); 
-            font-weight: 700; 
-            color: var(--text-dark-secondary); 
-            cursor: pointer; 
-            transition: all 0.3s var(--ease-out-quint); 
-        }
-        
-        .toggle-button.active { 
-            background-color: white; 
-            color: var(--text-dark-primary); 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-        }
-        
-        .plant-selector { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 120px), 1fr)); 
-            gap: clamp(0.3rem, 1vw, 0.5rem); 
-            margin-bottom: clamp(1rem, 3vw, 1.5rem); 
-        }
-        
-        .plant-button { 
-            background-color: rgba(0,0,0,0.05); 
-            color: var(--text-dark-secondary); 
-            border: 1px solid transparent; 
-            padding: clamp(0.5rem, 1.5vw, 0.75rem); 
-            border-radius: clamp(6px, 1.5vw, 8px); 
-            font-weight: 700; 
-            cursor: pointer; 
-            text-align: center; 
-            transition: all 0.2s; 
-            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
-        }
-        
-        .plant-button.active { 
-            background-color: var(--text-dark-primary); 
-            color: white; 
-        }
-        
-        .chart-view { 
-            display: none; 
-        }
-        
-        .chart-view.active { 
-            display: block; 
-        }
-        
-        .table-container { 
-            flex-grow: 1; 
-            overflow: auto; 
-            max-height: clamp(300px, 50vh, 400px); 
-        }
-        
-        .performance-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-family: var(--font-family); 
-            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
-        }
-        
-        .performance-table th, 
-        .performance-table td { 
-            padding: clamp(0.4rem, 1.2vw, 0.75rem) clamp(0.6rem, 1.8vw, 1rem); 
-            text-align: left; 
-            border-bottom: 1px solid rgba(0,0,0,0.1); 
-        }
-        
-        .performance-table th { 
-            font-weight: 700; 
-            color: var(--text-dark-primary); 
-            position: sticky; 
-            top: 0; 
-            background: var(--card-bg); 
-            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
-        }
-        
-        .performance-table td { 
-            font-weight: 500; 
-        }
-        
-        .performance-table tbody tr:nth-child(even) { 
-            background-color: rgba(0,0,0,0.02); 
-        }
-        
-        .performance-table .flagship-row { 
-            background-color: rgba(72, 202, 228, 0.1); 
-        }
-        
-        .performance-table .growth-positive { 
-            color: #0f5132; 
-            font-weight: 700; 
-        }
-        
-        .cta-button { 
-            display: inline-block; 
-            background-color: #0096c7; 
-            color: white; 
-            padding: clamp(0.6rem, 1.8vw, 0.75rem) clamp(1rem, 3vw, 1.5rem); 
-            border-radius: 25px; 
-            text-decoration: none; 
-            font-weight: 700; 
-            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
-            transition: all 0.3s var(--ease-out-quint);
-        }
-        
-        .cta-button:hover {
-            background-color: var(--text-dark-primary);
-            transform: translateY(-2px);
-        }
-        
-        .back-button { 
-            position: absolute; 
-            top: clamp(1rem, 3vw, 2rem); 
-            left: clamp(1rem, 3vw, 2rem); 
-            z-index: 10; 
-        }
-
-        /* Enhanced Mobile Responsiveness */
-        @media (max-width: 1200px) { 
-            .dashboard-grid { 
-                grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); 
-                gap: clamp(1rem, 2.5vw, 1.5rem); 
-            } 
-        }
-        
-        @media (max-width: 900px) { 
-            .dashboard-grid { 
-                grid-template-columns: 1fr; 
-                gap: 1rem; 
-            }
-            
-            .page-header {
-                padding-top: clamp(1.5rem, 4vw, 2rem);
-            }
-            
-            .analysis-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.75rem;
-            }
-            
-            .chart-toggle {
-                align-self: stretch;
-            }
-            
-            .toggle-button {
-                flex: 1;
-                text-align: center;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 0.5rem;
-            }
-            
-            .glass-card {
-                margin-bottom: 0.75rem;
-                min-height: clamp(250px, 35vh, 300px);
-            }
-            
-            .metric-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
-            }
-            
-            .plant-selector {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 0.25rem;
-            }
-            
-            .achievement-item {
-                flex-direction: row;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            
-            .achievement-icon {
-                width: 28px;
-                height: 28px;
-            }
-            
-            .achievement-icon svg {
-                width: 18px;
-                height: 18px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .plant-selector {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .metric-grid {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            
-            .performance-table {
-                font-size: 0.7rem;
-            }
-            
-            .performance-table th,
-            .performance-table td {
-                padding: 0.3rem 0.4rem;
-            }
-        }
-        
-        /* Chart responsiveness */
-        .chart-view canvas {
-            width: 100% !important;
-            height: 300px !important;
-            max-height: 400px;
-        }
-        
-        @media (max-width: 600px) {
-            .chart-view canvas {
-                height: 250px !important;
-            }
-        }
+        .card-content { padding: clamp(1.25rem, 4vw, 2.5rem); z-index: 2; height: 100%; display: flex; flex-direction: column; }
+        .card-content h2 { font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 800; color: var(--text-dark-primary); margin-bottom: clamp(1rem, 3vw, 1.5rem); padding-bottom: 0.5rem; display: inline-block; position: relative; }
+        .card-content h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--glow-color); transform-origin: center; animation: pulseUnderline 3s ease-in-out infinite; }
+        @keyframes pulseUnderline { 0%, 100% { transform: scaleX(1); opacity: 0.8; } 50% { transform: scaleX(1.03); opacity: 1; } }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 25vw, 140px), 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); }
+        .metric-card { background: rgba(255,255,255,0.5); border-radius: clamp(10px, 2vw, 15px); padding: clamp(1rem, 3vw, 1.5rem); text-align: center; }
+        .metric-card .value { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-dark-primary); line-height: 1; margin-bottom: 0.25rem; }
+        .metric-card .label { font-size: clamp(0.75rem, 2.2vw, 1rem); font-weight: 500; line-height: 1.3; }
+        .achievement-list { list-style-type: none; padding-left: 0; margin-top: clamp(1rem, 3vw, 1.5rem); }
+        .achievement-item { display: flex; align-items: flex-start; gap: clamp(0.75rem, 2vw, 1rem); background: rgba(255,255,255,0.6); padding: clamp(0.75rem, 2vw, 1rem); border-radius: clamp(8px, 2vw, 12px); margin-bottom: clamp(0.75rem, 2vw, 1rem); }
+        .achievement-icon { flex-shrink: 0; width: clamp(32px, 6vw, 40px); height: clamp(32px, 6vw, 40px); display: grid; place-items: center; border-radius: clamp(6px, 1.5vw, 8px); }
+        .achievement-icon svg { width: clamp(20px, 4vw, 28px); height: clamp(20px, 4vw, 28px); }
+        .achievement-text strong { color: var(--text-dark-primary); font-size: clamp(0.85rem, 2.2vw, 1.1rem); font-weight: 700; display: block; line-height: 1.3; }
+        .achievement-text p { font-size: clamp(0.75rem, 2vw, 0.9rem); line-height: 1.4; margin: 0.25rem 0 0 0; }
+        .analysis-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: clamp(0.75rem, 2vw, 1rem); margin-bottom: clamp(1rem, 3vw, 1.5rem); }
+        .chart-toggle { background-color: rgba(255,255,255,0.2); border-radius: 25px; padding: clamp(0.2rem, 0.5vw, 0.25rem); display: inline-flex; gap: clamp(0.2rem, 0.5vw, 0.25rem); }
+        .toggle-button { font-family: var(--font-family); background: transparent; border: none; padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem); border-radius: 25px; font-size: clamp(0.75rem, 2vw, 0.9rem); font-weight: 700; color: var(--text-dark-secondary); cursor: pointer; transition: all 0.3s var(--ease-out-quint); }
+        .toggle-button.active { background-color: white; color: var(--text-dark-primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .plant-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 120px), 1fr)); gap: clamp(0.3rem, 1vw, 0.5rem); margin-bottom: clamp(1rem, 3vw, 1.5rem); }
+        .plant-button { background-color: rgba(0,0,0,0.05); color: var(--text-dark-secondary); border: 1px solid transparent; padding: clamp(0.5rem, 1.5vw, 0.75rem); border-radius: clamp(6px, 1.5vw, 8px); font-weight: 700; cursor: pointer; text-align: center; transition: all 0.2s; font-size: clamp(0.7rem, 1.8vw, 0.9rem); }
+        .plant-button.active { background-color: var(--text-dark-primary); color: white; }
+        .chart-view { display: none; }
+        .chart-view.active { display: block; }
+        .table-container { flex-grow: 1; overflow: auto; max-height: clamp(300px, 50vh, 400px); }
+        .performance-table { width: 100%; border-collapse: collapse; font-family: var(--font-family); font-size: clamp(0.75rem, 1.8vw, 0.9rem); }
+        .performance-table th, .performance-table td { padding: clamp(0.4rem, 1.2vw, 0.75rem) clamp(0.6rem, 1.8vw, 1rem); text-align: left; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .performance-table th { font-weight: 700; color: var(--text-dark-primary); position: sticky; top: 0; background: var(--card-bg); font-size: clamp(0.75rem, 1.8vw, 0.9rem); }
+        .performance-table td { font-weight: 500; }
+        .performance-table tbody tr:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+        .performance-table .flagship-row { background-color: rgba(72, 202, 228, 0.1); }
+        .performance-table .growth-positive { color: #0f5132; font-weight: 700; }
+        .cta-button { display: inline-block; background-color: #0096c7; color: white; padding: clamp(0.6rem, 1.8vw, 0.75rem) clamp(1rem, 3vw, 1.5rem); border-radius: 25px; text-decoration: none; font-weight: 700; font-size: clamp(0.75rem, 1.8vw, 0.9rem); transition: all 0.3s var(--ease-out-quint); }
+        .cta-button:hover { background-color: var(--text-dark-primary); transform: translateY(-2px); }
+        .back-button { position: absolute; top: clamp(1rem, 3vw, 2rem); left: clamp(1rem, 3vw, 2rem); z-index: 10; }
+        @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(1rem, 2.5vw, 1.5rem); } }
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; } .page-header { padding-top: clamp(1.5rem, 4vw, 2rem); } .analysis-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; } .chart-toggle { align-self: stretch; } .toggle-button { flex: 1; text-align: center; } }
+        @media (max-width: 600px) { body { padding: 0.5rem; } .glass-card { margin-bottom: 0.75rem; min-height: clamp(250px, 35vh, 300px); } .metric-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; } .plant-selector { grid-template-columns: repeat(4, 1fr); gap: 0.25rem; } .achievement-item { flex-direction: row; align-items: center; gap: 0.5rem; } .achievement-icon { width: 28px; height: 28px; } .achievement-icon svg { width: 18px; height: 18px; } }
+        @media (max-width: 400px) { .plant-selector { grid-template-columns: repeat(3, 1fr); } .metric-grid { grid-template-columns: 1fr; gap: 0.5rem; } .performance-table { font-size: 0.7rem; } .performance-table th, .performance-table td { padding: 0.3rem 0.4rem; } }
+        .chart-view canvas { width: 100% !important; height: 300px !important; max-height: 400px; }
+        @media (max-width: 600px) { .chart-view canvas { height: 250px !important; } }
     </style>
 </head>
 <body>
@@ -499,6 +129,7 @@
                             <div class="chart-toggle" id="chart-toggle-container">
                                 <button class="toggle-button active" data-chart="timeline">Timeline</button>
                                 <button class="toggle-button" data-chart="comparison">Comparison</button>
+                                <button class="toggle-button" data-chart="branches">Branches</button>
                             </div>
                         </div>
                         
@@ -509,6 +140,9 @@
 
                         <div id="view-comparison" class="chart-view">
                             <canvas id="comparisonChart"></canvas>
+                        </div>
+                        <div id="view-branches" class="chart-view">
+                            <canvas id="branchChart"></canvas>
                         </div>
                      </div>
                 </div>
@@ -580,346 +214,280 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const rawData = [
-                { date: '2025/8/2', plantNo: 1, size: 6.5 }, { date: '2025/8/2', plantNo: 2, size: 10 }, { date: '2025/8/2', plantNo: 3, size: 4.5 }, { date: '2025/8/2', plantNo: 4, size: 4 }, { date: '2025/8/2', plantNo: 5, size: 2 }, { date: '2025/8/2', plantNo: 6, size: 5 }, { date: '2025/8/2', plantNo: 7, size: 6 }, { date: '2025/8/2', plantNo: 8, size: 3.5 }, { date: '2025/8/2', plantNo: 9, size: 7 }, { date: '2025/8/2', plantNo: 10, size: 4.5 }, { date: '2025/8/2', plantNo: 11, size: 2.5 }, { date: '2025/8/2', plantNo: 12, size: 4 }, { date: '2025/8/2', plantNo: 13, size: 3.5 }, { date: '2025/8/2', plantNo: 14, size: 2 }, { date: '2025/8/2', plantNo: 15, size: 3 }, { date: '2025/8/2', plantNo: 16, size: 3.5 },
-                { date: '2025/8/10', plantNo: 1, size: 9.5 }, { date: '2025/8/10', plantNo: 2, size: 15 }, { date: '2025/8/10', plantNo: 3, size: 7 }, { date: '2025/8/10', plantNo: 4, size: 6 }, { date: '2025/8/10', plantNo: 5, size: 4 }, { date: '2025/8/10', plantNo: 6, size: 4 }, { date: '2025/8/10', plantNo: 7, size: 8.5 }, { date: '2025/8/10', plantNo: 8, size: 6 }, { date: '2025/8/10', plantNo: 9, size: 12.5 }, { date: '2025/8/10', plantNo: 10, size: 7.5 }, { date: '2025/8/10', plantNo: 11, size: 3.5 }, { date: '2025/8/10', plantNo: 12, size: 4.5 }, { date: '2025/8/10', plantNo: 13, size: 3.5 }, { date: '2025/8/10', plantNo: 14, size: 3.5 }, { date: '2025/8/10', plantNo: 15, size: 3 }, { date: '2025/8/10', plantNo: 16, size: 4.5 },
-                { date: '2025/8/15', plantNo: 1, size: 13 }, { date: '2025/8/15', plantNo: 2, size: 21 }, { date: '2025/8/15', plantNo: 3, size: 10 }, { date: '2025/8/15', plantNo: 4, size: 9.5 }, { date: '2025/8/15', plantNo: 5, size: 5.5 }, { date: '2025/8/15', plantNo: 6, size: 5.5 }, { date: '2025/8/15', plantNo: 7, size: 11 }, { date: '2025/8/15', plantNo: 8, size: 6.5 }, { date: '2025/8/15', plantNo: 9, size: 15 }, { date: '2025/8/15', plantNo: 10, size: 7.5 }, { date: '2025/8/15', plantNo: 11, size: 3.5 }, { date: '2025/8/15', plantNo: 12, size: 4.5 }, { date: '2025/8/15', plantNo: 13, size: 3.5 }, { date: '2025/8/15', plantNo: 14, size: 3.5 }, { date: '2025/8/15', plantNo: 15, size: 4 }, { date: '2025/8/15', plantNo: 16, size: 5 },
-                { date: '2025/8/20', plantNo: 1, size: 19 }, { date: '2025/8/20', plantNo: 2, size: 30 }, { date: '2025/8/20', plantNo: 3, size: 14.5 }, { date: '2025/8/20', plantNo: 4, size: 15 }, { date: '2025/8/20', plantNo: 5, size: 9.5 }, { date: '2025/8/20', plantNo: 6, size: 9 }, { date: '2025/8/20', plantNo: 7, size: 17 }, { date: '2025/8/20', plantNo: 8, size: 10 }, { date: '2025/8/20', plantNo: 9, size: 24.5 }, { date: '2025/8/20', plantNo: 10, size: 11 }, { date: '2025/8/20', plantNo: 11, size: 5 }, { date: '2025/8/20', plantNo: 12, size: 10 }, { date: '2025/8/20', plantNo: 13, size: 5.5 }, { date: '2025/8/20', plantNo: 14, size: 5 }, { date: '2025/8/20', plantNo: 15, size: 7 }, { date: '2025/8/20', plantNo: 16, size: 7.5 },
-                { date: '2025/8/31', plantNo: 1, size: 31 }, { date: '2025/8/31', plantNo: 2, size: 50 }, { date: '2025/8/31', plantNo: 3, size: 21 }, { date: '2025/8/31', plantNo: 4, size: 28 }, { date: '2025/8/31', plantNo: 5, size: 16 }, { date: '2025/8/31', plantNo: 6, size: 17 }, { date: '2025/8/31', plantNo: 7, size: 30.5 }, { date: '2025/8/31', plantNo: 8, size: 18 }, { date: '2025/8/31', plantNo: 9, size: 43 }, { date: '2025/8/31', plantNo: 10, size: 22 }, { date: '2025/8/31', plantNo: 11, size: 7.5 }, { date: '2025/8/31', plantNo: 12, size: 18 }, { date: '2025/8/31', plantNo: 13, size: 7.5 }, { date: '2025/8/31', plantNo: 14, size: 8 }, { date: '2025/8/31', plantNo: 15, size: 15.5 }, { date: '2025/8/31', plantNo: 16, size: 17 },
-                { date: '2025/9/3', plantNo: 1, size: 33 }, { date: '2025/9/3', plantNo: 2, size: 55 }, { date: '2025/9/3', plantNo: 3, size: 25 }, { date: '2025/9/3', plantNo: 4, size: 31 }, { date: '2025/9/3', plantNo: 5, size: 19 }, { date: '2025/9/3', plantNo: 6, size: 18.5 }, { date: '2025/9/3', plantNo: 7, size: 36.5 }, { date: '2025/9/3', plantNo: 8, size: 20 }, { date: '2025/9/3', plantNo: 9, size: 48 }, { date: '2025/9/3', plantNo: 10, size: 26 }, { date: '2025/9/3', plantNo: 11, size: 11 }, { date: '2025/9/3', plantNo: 12, size: 21 }, { date: '2025/9/3', plantNo: 13, size: 9 }, { date: '2025/9/3', plantNo: 14, size: 9 }, { date: '2025/9/3', plantNo: 15, size: 22 }, { date: '2025/9/3', plantNo: 16, size: 18 },
-                { date: '2025/9/12', plantNo: 1, size: 45 }, { date: '2025/9/12', plantNo: 2, size: 66 }, { date: '2025/9/12', plantNo: 3, size: 38 }, { date: '2025/9/12', plantNo: 4, size: 44 }, { date: '2025/9/12', plantNo: 5, size: 28 }, { date: '2025/9/12', plantNo: 6, size: 31 }, { date: '2025/9/12', plantNo: 7, size: 46 }, { date: '2025/9/12', plantNo: 8, size: 34 }, { date: '2025/9/12', plantNo: 9, size: 58 }, { date: '2025/9/12', plantNo: 10, size: 44 }, { date: '2025/9/12', plantNo: 11, size: 16 }, { date: '2025/9/12', plantNo: 12, size: 34 }, { date: '2025/9/12', plantNo: 13, size: 14 }, { date: '2025/9/12', plantNo: 14, size: 14 }, { date: '2025/9/12', plantNo: 15, size: 28 }, { date: '2025/9/12', plantNo: 16, size: 35 },
-                { date: '2025/9/18', plantNo: 1, size: 45 }, { date: '2025/9/18', plantNo: 2, size: 76 }, { date: '2025/9/18', plantNo: 3, size: 53 }, { date: '2025/9/18', plantNo: 4, size: 53 }, { date: '2025/9/18', plantNo: 5, size: 40 }, { date: '2025/9/18', plantNo: 6, size: 46 }, { date: '2025/9/18', plantNo: 7, size: 61 }, { date: '2025/9/18', plantNo: 8, size: 45 }, { date: '2025/9/18', plantNo: 9, size: 61 }, { date: '2025/9/18', plantNo: 10, size: 58 }, { date: '2025/9/18', plantNo: 11, size: 24 }, { date: '2025/9/18', plantNo: 12, size: 47 }, { date: '2025/9/18', plantNo: 13, size: 20 }, { date: '2025/9/18', plantNo: 14, size: 22 }, { date: '2025/9/18', plantNo: 15, size: 40 }, { date: '2025/9/18', plantNo: 16, size: 49 }
-            ];
             
-            let selectedPlants = [2, 7, 9];
-            let growthChartInstance, comparisonChartInstance;
-            let activeChart = 'timeline';
+            // Fetch and parse the JSON data
+            fetch('hydroponic_data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    // This one line does all the parsing!
+                    return response.json(); 
+                })
+                .then(rawData => {
+                    // The data is already a perfect JavaScript array of objects
+                    initializeDashboard(rawData);
+                })
+                .catch(error => {
+                    console.error('Error loading or parsing JSON data:', error);
+                    alert('Failed to load plant data. Please ensure hydroponic_data.json is in the same directory and is accessible.');
+                });
 
-            const LATEST_DATE = '2025/9/18';
-            const START_DATE = '2025/8/2';
-            
-            const getDayNumber = (dateStr) => {
-                const startDate = new Date(START_DATE).getTime();
-                const currentDate = new Date(dateStr).getTime();
-                return Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-            };
+            function initializeDashboard(rawData) {
+                let selectedPlants = [2, 7, 9];
+                let growthChartInstance, comparisonChartInstance, branchChartInstance;
+                let activeChart = 'timeline';
 
-            const latestDataAll = rawData.filter(d => d.date === LATEST_DATE);
-            const avgSize = 47.4; // As per PDF summary note
-            const maxSize = Math.max(...latestDataAll.map(p => p.size));
-            const daysRunning = Math.floor((new Date(LATEST_DATE).getTime() - new Date(START_DATE).getTime()) / (1000 * 60 * 60 * 24));
-            
-            const plantSelectorContainer = document.getElementById('plant-selector-container');
-            const performanceTableBody = document.getElementById('performance-table-body');
-            const chartToggleContainer = document.getElementById('chart-toggle-container');
-
-            function renderMetrics() {
-                document.getElementById('metric-max-size').innerText = maxSize;
-                document.getElementById('metric-avg-size').innerText = avgSize;
-                document.getElementById('metric-days').innerText = daysRunning;
-            }
-
-            function renderPlantSelector() {
-                plantSelectorContainer.innerHTML = '';
-                for (let i = 1; i <= 16; i++) {
-                    const button = document.createElement('button');
-                    button.className = `plant-button ${selectedPlants.includes(i) ? 'active' : ''}`;
-                    button.innerText = `Plant #${i}`;
-                    button.dataset.plantNo = i;
-                    plantSelectorContainer.appendChild(button);
-                }
-            }
-
-            function renderPerformanceTable() {
-                performanceTableBody.innerHTML = '';
-                const firstDate = START_DATE;
-                for(let i = 1; i <= 16; i++) {
-                    const initial = rawData.find(d => d.date === firstDate && d.plantNo === i);
-                    const plantData = rawData.filter(d => d.plantNo === i).sort((a,b) => new Date(b.date) - new Date(a.date));
-                    const final = plantData[0]; 
-
-                    if(!initial || !final) continue;
-
-                    const growth = ((final.size - initial.size) / initial.size * 100).toFixed(1);
-                    const row = document.createElement('tr');
-                    if(i === 2 || i === 7 || i === 9) row.className = 'flagship-row';
-                    row.innerHTML = `
-                        <td><strong>#${i}</strong></td>
-                        <td>${initial.size}</td>
-                        <td>${final.size}</td>
-                        <td class="growth-positive">+${growth}%</td>
-                    `;
-                    performanceTableBody.appendChild(row);
-                }
-            }
-
-            function renderCharts() {
-                if (growthChartInstance) {
-                    growthChartInstance.destroy();
-                    growthChartInstance = null;
-                }
-                if (comparisonChartInstance) {
-                    comparisonChartInstance.destroy();
-                    comparisonChartInstance = null;
-                }
-
-                document.querySelectorAll('.chart-view').forEach(c => c.classList.remove('active'));
+                const LATEST_DATE = '2025/9/18';
+                const START_DATE = '2025/8/2';
                 
-                Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-                Chart.defaults.color = '#0077b6';
-                Chart.defaults.font.weight = '500';
-                
-                const tooltipStyles = {
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(10px)',
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    borderWidth: 1,
-                    titleColor: '#023e8a',
-                    bodyColor: '#0077b6',
-                    padding: 12,
-                    cornerRadius: 10,
-                    titleFont: { weight: '700', size: 14 },
-                    bodyFont: { weight: '500', size: 13 }
+                const getDayNumber = (dateStr) => {
+                    const startDate = new Date(START_DATE).getTime();
+                    const currentDate = new Date(dateStr).getTime();
+                    return Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
                 };
 
-                if (activeChart === 'timeline') {
-                    document.getElementById('view-timeline').classList.add('active');
-                    const ctx = document.getElementById('growthChart').getContext('2d');
+                const latestDataAll = rawData.filter(d => d.date === LATEST_DATE);
+                const avgSize = 47.4; 
+                const maxSize = Math.max(...latestDataAll.map(p => p.size));
+                const daysRunning = Math.floor((new Date(LATEST_DATE).getTime() - new Date(START_DATE).getTime()) / (1000 * 60 * 60 * 24));
+                
+                const plantSelectorContainer = document.getElementById('plant-selector-container');
+                const performanceTableBody = document.getElementById('performance-table-body');
+                const chartToggleContainer = document.getElementById('chart-toggle-container');
+
+                function renderMetrics() {
+                    document.getElementById('metric-max-size').innerText = maxSize;
+                    document.getElementById('metric-avg-size').innerText = avgSize;
+                    document.getElementById('metric-days').innerText = daysRunning;
+                }
+
+                function renderPlantSelector() {
+                    plantSelectorContainer.innerHTML = '';
+                    for (let i = 1; i <= 16; i++) {
+                        const button = document.createElement('button');
+                        button.className = `plant-button ${selectedPlants.includes(i) ? 'active' : ''}`;
+                        button.innerText = `Plant #${i}`;
+                        button.dataset.plantNo = i;
+                        plantSelectorContainer.appendChild(button);
+                    }
+                }
+
+                function renderPerformanceTable() {
+                    performanceTableBody.innerHTML = '';
+                    const firstDate = START_DATE;
+                    for(let i = 1; i <= 16; i++) {
+                        const initial = rawData.find(d => d.date === firstDate && d.plantNo === i);
+                        const plantData = rawData.filter(d => d.plantNo === i).sort((a,b) => new Date(b.date) - new Date(a.date));
+                        const final = plantData[0]; 
+
+                        if(!initial || !final) continue;
+
+                        const growth = ((final.size - initial.size) / initial.size * 100).toFixed(1);
+                        const row = document.createElement('tr');
+                        if(i === 2 || i === 7 || i === 9) row.className = 'flagship-row';
+                        row.innerHTML = `
+                            <td><strong>#${i}</strong></td>
+                            <td>${initial.size}</td>
+                            <td>${final.size}</td>
+                            <td class="growth-positive">+${growth}%</td>
+                        `;
+                        performanceTableBody.appendChild(row);
+                    }
+                }
+
+                function renderCharts() {
+                    if (growthChartInstance) growthChartInstance.destroy();
+                    if (comparisonChartInstance) comparisonChartInstance.destroy();
+                    if (branchChartInstance) branchChartInstance.destroy();
+
+                    document.querySelectorAll('.chart-view').forEach(c => c.classList.remove('active'));
                     
+                    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+                    Chart.defaults.color = '#0077b6';
+                    Chart.defaults.font.weight = '500';
+                    
+                    const tooltipStyles = {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        borderColor: 'rgba(255, 255, 255, 0.4)',
+                        borderWidth: 1,
+                        titleColor: '#023e8a',
+                        bodyColor: '#0077b6',
+                        padding: 12,
+                        cornerRadius: 10,
+                        titleFont: { weight: '700', size: 14 },
+                        bodyFont: { weight: '500', size: 13 }
+                    };
+
                     const dates = [...new Set(rawData.map(d => d.date))].sort((a,b) => new Date(a).getTime() - new Date(b).getTime());
                     const labels = dates.map(date => {
                         const dayNum = getDayNumber(date);
                         const dateObj = new Date(date);
                         return `Day ${dayNum} (${dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
                     });
-                    
                     const chartColors = ['#00b4d8', '#48cae4', '#90e0ef', '#0077b6', '#023e8a'];
 
-                    const datasets = selectedPlants.map((plantNo, index) => {
-                        const color = chartColors[index % chartColors.length];
-                        const plantData = dates.map(date => {
-                            const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
-                            return dataPoint ? dataPoint.size : null;
+                    if (activeChart === 'timeline') {
+                        document.getElementById('view-timeline').classList.add('active');
+                        const ctx = document.getElementById('growthChart').getContext('2d');
+                        
+                        const datasets = selectedPlants.map((plantNo, index) => {
+                            const color = chartColors[index % chartColors.length];
+                            const plantData = dates.map(date => {
+                                const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
+                                return dataPoint ? dataPoint.size : null;
+                            });
+
+                            return {
+                                label: `Plant #${plantNo}`,
+                                data: plantData,
+                                borderColor: color,
+                                backgroundColor: color + '20',
+                                tension: 0.3,
+                                borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 3,
+                                pointRadius: (plantNo === 2 || plantNo === 9) ? 6 : 5,
+                                pointBackgroundColor: color,
+                                pointBorderColor: 'white',
+                                pointBorderWidth: 2,
+                                spanGaps: true,
+                                fill: false
+                            };
                         });
 
-                        return {
-                            label: `Plant #${plantNo}`,
-                            data: plantData,
-                            borderColor: color,
-                            backgroundColor: color + '20',
-                            tension: 0.3,
-                            borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 3,
-                            pointRadius: (plantNo === 2 || plantNo === 9) ? 6 : 5,
-                            pointBackgroundColor: color,
-                            pointBorderColor: 'white',
-                            pointBorderWidth: 2,
-                            spanGaps: true,
-                            fill: false
-                        };
-                    });
+                        growthChartInstance = new Chart(ctx, { 
+                            type: 'line', 
+                            data: { labels, datasets }, 
+                            options: { 
+                                responsive: true, maintainAspectRatio: false,
+                                scales: { 
+                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700', size: 14 } } },
+                                    x: { grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
+                                }, 
+                                interaction: { intersect: false, mode: 'index' }, 
+                                plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true, color: '#023e8a', font: { weight: '600' }, padding: 15 } } },
+                                elements: { line: { tension: 0.3 }, point: { hoverRadius: 8 } }
+                            }
+                        });
 
-                    growthChartInstance = new Chart(ctx, { 
-                        type: 'line', 
-                        data: { labels, datasets }, 
-                        options: { 
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: { 
-                                y: { 
-                                    beginAtZero: true,
-                                    grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
-                                        drawBorder: false
-                                    },
-                                    ticks: {
-                                        color: '#0077b6',
-                                        font: { weight: '600' }
-                                    },
-                                    title: { 
-                                        display: true, 
-                                        text: 'Height (cm)', 
-                                        color: '#023e8a',
-                                        font: { weight: '700', size: 14 }
-                                    }
+                    } else if (activeChart === 'comparison') {
+                        document.getElementById('view-comparison').classList.add('active');
+                        const ctx = document.getElementById('comparisonChart').getContext('2d');
+                        const finalData = latestDataAll;
+                        
+                        const labels = finalData.map(d => `Plant #${d.plantNo}`);
+                        const data = finalData.map(d => d.size);
+                        const backgroundColors = finalData.map(d => (d.plantNo === 2 || d.plantNo === 9 || d.plantNo === 7) ? '#48cae4' : d.size > 50 ? '#00b4d8' : d.size > 30 ? '#0077b6' : '#90e0ef');
+                        
+                        comparisonChartInstance = new Chart(ctx, { 
+                            type: 'bar', 
+                            data: { labels, datasets: [{ label: 'Current Height (cm)', data, backgroundColor: backgroundColors, borderColor: backgroundColors.map(c => c.replace('ef', 'cc')), borderWidth: 2, borderRadius: 8, borderSkipped: false }] }, 
+                            options: { 
+                                responsive: true, maintainAspectRatio: false,
+                                scales: { 
+                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700', size: 14 } } },
+                                    x: { grid: { display: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
+                                }, 
+                                plugins: { legend: { display: false }, tooltip: { ...tooltipStyles, callbacks: { title: (c) => c[0].label, label: (c) => `Height: ${c.parsed.y} cm` } } },
+                                elements: { bar: { borderWidth: 2 } }
+                            }
+                        });
+
+                    } else if (activeChart === 'branches') {
+                        document.getElementById('view-branches').classList.add('active');
+                        const ctx = document.getElementById('branchChart').getContext('2d');
+
+                        const datasets = selectedPlants.map((plantNo, index) => {
+                            const color = chartColors[index % chartColors.length];
+                            const branchData = dates.map(date => {
+                                const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
+                                return dataPoint ? dataPoint.branches : null;
+                            });
+
+                            return {
+                                label: `Plant #${plantNo}`,
+                                data: branchData,
+                                borderColor: color,
+                                backgroundColor: color + '20',
+                                tension: 0.3,
+                                borderWidth: (plantNo === 2 || plantNo === 9) ? 4 : 3,
+                                pointRadius: (plantNo === 2 || plantNo === 9) ? 6 : 5,
+                                pointBackgroundColor: color,
+                                pointBorderColor: 'white',
+                                pointBorderWidth: 2,
+                                spanGaps: true,
+                                fill: false
+                            };
+                        });
+
+                        branchChartInstance = new Chart(ctx, {
+                            type: 'line',
+                            data: { labels, datasets },
+                            options: {
+                                responsive: true, maintainAspectRatio: false,
+                                scales: {
+                                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' } }, title: { display: true, text: 'Branch Count', color: '#023e8a', font: { weight: '700', size: 14 } } },
+                                    x: { grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false }, ticks: { color: '#0077b6', font: { weight: '600' }, maxRotation: 45 } }
                                 },
-                                x: {
-                                    grid: { 
-                                        color: 'rgba(0,0,0,0.05)',
-                                        drawBorder: false
-                                    },
-                                    ticks: {
-                                        color: '#0077b6',
-                                        font: { weight: '600' },
-                                        maxRotation: 45
-                                    }
-                                }
-                            }, 
-                            interaction: { 
-                                intersect: false, 
-                                mode: 'index' 
-                            }, 
-                            plugins: { 
-                                tooltip: { ...tooltipStyles },
-                                legend: { 
-                                    labels: { 
-                                        usePointStyle: true,
-                                        color: '#023e8a',
-                                        font: { weight: '600' },
-                                        padding: 15
-                                    }
-                                }
-                            },
-                            elements: {
-                                line: {
-                                    tension: 0.3
-                                },
-                                point: {
-                                    hoverRadius: 8
-                                }
+                                interaction: { intersect: false, mode: 'index' },
+                                plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true, color: '#023e8a', font: { weight: '600' }, padding: 15 } } },
+                                elements: { line: { tension: 0.3 }, point: { hoverRadius: 8 } }
+                            }
+                        });
+                    }
+
+                    setTimeout(() => {
+                        if (growthChartInstance) growthChartInstance.resize();
+                        if (comparisonChartInstance) comparisonChartInstance.resize();
+                        if (branchChartInstance) branchChartInstance.resize();
+                    }, 100);
+                }
+                
+                chartToggleContainer.addEventListener('click', (e) => {
+                    if (e.target.matches('.toggle-button')) {
+                        activeChart = e.target.dataset.chart;
+                        chartToggleContainer.querySelectorAll('.toggle-button').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        renderCharts();
+                    }
+                });
+
+                plantSelectorContainer.addEventListener('click', (e) => {
+                    if(e.target.matches('.plant-button')) {
+                        const plantNo = parseInt(e.target.dataset.plantNo);
+                        if (selectedPlants.includes(plantNo)) {
+                            if (selectedPlants.length > 1) {
+                                selectedPlants = selectedPlants.filter(p => p !== plantNo);
+                            }
+                        } else {
+                            if (selectedPlants.length < 5) {
+                                selectedPlants.push(plantNo);
                             }
                         }
-                    });
-
-                } else if (activeChart === 'comparison') {
-                    document.getElementById('view-comparison').classList.add('active');
-                    const ctx = document.getElementById('comparisonChart').getContext('2d');
-                    
-                    const finalData = [];
-                    for(let i = 1; i <= 16; i++) {
-                        const plantData = rawData.find(d => d.date === LATEST_DATE && d.plantNo === i);
-                        if(plantData) {
-                            finalData.push(plantData);
-                        }
+                        renderPlantSelector();
+                        renderCharts();
                     }
-                    
-                    const labels = finalData.map(d => `Plant #${d.plantNo}`);
-                    const data = finalData.map(d => d.size);
-                    const backgroundColors = finalData.map(d => 
-                        (d.plantNo === 2 || d.plantNo === 9 || d.plantNo === 7) ? '#48cae4' : 
-                        d.size > 50 ? '#00b4d8' : 
-                        d.size > 30 ? '#0077b6' : '#90e0ef'
-                    );
-                    
-                    comparisonChartInstance = new Chart(ctx, { 
-                        type: 'bar', 
-                        data: { 
-                            labels, 
-                            datasets: [{ 
-                                label: 'Current Height (cm)', 
-                                data, 
-                                backgroundColor: backgroundColors,
-                                borderColor: backgroundColors.map(c => c.replace('ef', 'cc')),
-                                borderWidth: 2,
-                                borderRadius: 8,
-                                borderSkipped: false
-                            }] 
-                        }, 
-                        options: { 
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: { 
-                                y: { 
-                                    beginAtZero: true,
-                                    grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
-                                        drawBorder: false
-                                    },
-                                    ticks: {
-                                        color: '#0077b6',
-                                        font: { weight: '600' }
-                                    },
-                                    title: { 
-                                        display: true, 
-                                        text: 'Height (cm)', 
-                                        color: '#023e8a',
-                                        font: { weight: '700', size: 14 }
-                                    }
-                                },
-                                x: {
-                                    grid: { display: false },
-                                    ticks: {
-                                        color: '#0077b6',
-                                        font: { weight: '600' },
-                                        maxRotation: 45
-                                    }
-                                }
-                            }, 
-                            plugins: { 
-                                legend: { display: false }, 
-                                tooltip: { 
-                                    ...tooltipStyles,
-                                    callbacks: {
-                                        title: function(context) {
-                                            return context[0].label;
-                                        },
-                                        label: function(context) {
-                                            return `Height: ${context.parsed.y} cm`;
-                                        }
-                                    }
-                                }
-                            },
-                            elements: {
-                                bar: {
-                                    borderWidth: 2
-                                }
-                            }
-                        }
-                    });
-                }
+                });
 
-                setTimeout(() => {
-                    if (growthChartInstance) growthChartInstance.resize();
-                    if (comparisonChartInstance) comparisonChartInstance.resize();
-                }, 100);
-            }
-            
-            chartToggleContainer.addEventListener('click', (e) => {
-                if (e.target.matches('.toggle-button')) {
-                    activeChart = e.target.dataset.chart;
-                    chartToggleContainer.querySelectorAll('.toggle-button').forEach(btn => btn.classList.remove('active'));
-                    e.target.classList.add('active');
-                    renderCharts();
-                }
-            });
-
-            plantSelectorContainer.addEventListener('click', (e) => {
-                if(e.target.matches('.plant-button')) {
-                    const plantNo = parseInt(e.target.dataset.plantNo);
-                    if (selectedPlants.includes(plantNo)) {
-                        if (selectedPlants.length > 1) {
-                            selectedPlants = selectedPlants.filter(p => p !== plantNo);
-                        }
-                    } else {
-                        if (selectedPlants.length < 5) {
-                            selectedPlants.push(plantNo);
-                        }
-                    }
+                try {
+                    renderMetrics();
                     renderPlantSelector();
+                    renderPerformanceTable();
                     renderCharts();
+                } catch (error) {
+                    console.error('Dashboard initialization error:', error);
                 }
-            });
-
-            try {
-                renderMetrics();
-                renderPlantSelector();
-                renderPerformanceTable();
-                renderCharts();
-            } catch (error) {
-                console.error('Dashboard initialization error:', error);
+                
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        if (growthChartInstance) growthChartInstance.resize();
+                        if (comparisonChartInstance) comparisonChartInstance.resize();
+                        if (branchChartInstance) branchChartInstance.resize();
+                    }, 250);
+                });
             }
-            
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    if (growthChartInstance) {
-                        growthChartInstance.resize();
-                    }
-                    if (comparisonChartInstance) {
-                        comparisonChartInstance.resize();
-                    }
-                }, 250);
-            });
         });
     </script>
 </body>
