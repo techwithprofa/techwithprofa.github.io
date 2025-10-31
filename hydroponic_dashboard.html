@@ -3,482 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydroponic Dashboard - Portfolio Project</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <title>Hydroponic Growth Journal</title>
     <style>
         :root {
-            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            --gradient-bg: linear-gradient(135deg, #03045E, #023E8A, #0077B6, #0096C7);
-            --text-light: #caf0f8;
-            --text-dark-primary: #023e8a;
-            --text-dark-secondary: #0077b6;
-            --glow-color: #48cae4;
-            --card-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(202, 240, 248, 0.9));
-            --card-border: rgba(255, 255, 255, 0.4);
-            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-            --duration-medium: 300ms;
-            --duration-slow: 500ms;
+            --sky-blue: #8ecae6ff;
+            --blue-green: #219ebcff;
+            --prussian-blue: #023047ff;
+            --selective-yellow: #ffb703ff;
+            --ut-orange: #fb8500ff;
         }
-        * { box-sizing: border-box; }
-        body {
-            font-family: var(--font-family);
-            line-height: 1.7;
-            background: var(--gradient-bg);
-            background-size: 200% 200%;
-            animation: gradientFlow 15s ease infinite;
-            color: var(--text-light);
-            min-height: 100vh;
-            padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1rem);
-            margin: 0;
-        }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .container { max-width: 1400px; margin: 0 auto; width: 100%; }
-        .page-header { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); position: relative; padding-top: clamp(2rem, 6vw, 4rem); }
-        .page-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; background: linear-gradient(45deg, var(--text-light), var(--glow-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; line-height: 1.1; }
-        .page-header .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 500; opacity: 0.9; }
-        .dashboard-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); }
-        .glass-card {
-            background: var(--card-bg);
-            border-radius: clamp(15px, 3vw, 20px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            transition: transform var(--duration-medium) var(--ease-out-quint);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
-            color: var(--text-dark-secondary);
-            margin-bottom: clamp(1rem, 3vw, 2rem);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideInUp var(--duration-slow) var(--ease-out-quint) forwards;
-            min-height: clamp(300px, 40vh, 400px);
-        }
-        .glass-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit; padding: 2px; background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 1; opacity: 0; transition: opacity var(--duration-medium) var(--ease-out-quint); }
-        .glass-card:hover { transform: translateY(-4px) scale(1.01); }
-        .glass-card:hover::before { opacity: 1; animation: spin 3s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .main-content .glass-card:nth-of-type(1) { animation-delay: 100ms; }
-        .main-content .glass-card:nth-of-type(2) { animation-delay: 300ms; }
-        .sidebar-content .glass-card:nth-of-type(1) { animation-delay: 200ms; }
-        .sidebar-content .glass-card:nth-of-type(2) { animation-delay: 400ms; }
-        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
-        .card-content { padding: clamp(1.25rem, 3vw, 2rem); z-index: 2; height: 100%; display: flex; flex-direction: column; }
-        .card-content h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; color: var(--text-dark-primary); margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0; padding-bottom: 0.5rem; display: inline-block; position: relative; }
-        
-        /* === NEW & IMPROVED ANALYSIS SECTION === */
-        .analysis-controls {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin-bottom: clamp(1rem, 2vw, 1.5rem);
-            padding: clamp(0.5rem, 1vw, 0.75rem);
-            background: rgba(0,0,0,0.02);
-            border-radius: 12px;
-        }
-        .chart-toggle-modern {
-            display: flex;
-            background-color: rgba(0,0,0,0.07);
-            border-radius: 25px;
-            padding: 5px;
-            position: relative;
-        }
-        .toggle-glider {
-            position: absolute;
-            top: 5px;
-            bottom: 5px;
-            height: calc(100% - 10px);
-            background-color: white;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            border-radius: 25px;
-            transition: all 0.4s var(--ease-out-quint);
-        }
-        .toggle-button {
-            font-family: var(--font-family);
-            background: transparent;
-            border: none;
-            padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
-            border-radius: 25px;
-            font-size: clamp(0.75rem, 2vw, 0.9rem);
-            font-weight: 700;
-            color: var(--text-dark-secondary);
-            cursor: pointer;
-            transition: color 0.3s var(--ease-out-quint);
-            z-index: 1;
-            flex: 1;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .toggle-button.active { color: var(--text-dark-primary); }
 
-        .plant-selector { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 100px), 1fr)); 
-            gap: 0.5rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--prussian-blue) 0%, #034159 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .chart-nav-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--selective-yellow), var(--ut-orange));
+            color: var(--prussian-blue);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 133, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 133, 0, 0.6);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--selective-yellow);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--sky-blue);
+            font-weight: 300;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--blue-green), var(--sky-blue));
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--prussian-blue);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--prussian-blue);
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--sky-blue), var(--ut-orange));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-event {
+            display: flex;
+            margin-bottom: 60px;
+            position: relative;
+            align-items: center;
+        }
+
+        .timeline-event.left {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .timeline-event.right {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .event-card {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
-        .plant-selector.hidden {
-            opacity: 0;
-            transform: translateY(-10px);
-            max-height: 0;
-            overflow: hidden;
-            pointer-events: none;
-            margin-top: -1rem; /* Collapse margin */
-        }
-        .plant-button { background-color: rgba(255,255,255,0.4); color: var(--text-dark-secondary); border: 1px solid rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; font-size: clamp(0.7rem, 1.8vw, 0.85rem); }
-        .plant-button.active { background-color: var(--text-dark-primary); color: white; border-color: var(--text-dark-primary); }
-        .chart-view { display: none; }
-        .chart-view.active { display: block; flex-grow: 1; }
-        .chart-container { flex-grow: 1; min-height: 350px; }
-        /* === END OF NEW SECTION === */
 
-        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 25vw, 140px), 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); }
-        .metric-card { background: rgba(255,255,255,0.5); border-radius: clamp(10px, 2vw, 15px); padding: clamp(1rem, 3vw, 1.5rem); text-align: center; }
-        .metric-card .value { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-dark-primary); line-height: 1; margin-bottom: 0.25rem; }
-        .metric-card .label { font-size: clamp(0.75rem, 2.2vw, 1rem); font-weight: 500; line-height: 1.3; }
-        .achievement-list { list-style-type: none; padding-left: 0; margin-top: clamp(1rem, 3vw, 1.5rem); }
-        .achievement-item { display: flex; align-items: flex-start; gap: clamp(0.75rem, 2vw, 1rem); background: rgba(255,255,255,0.6); padding: clamp(0.75rem, 2vw, 1rem); border-radius: clamp(8px, 2vw, 12px); margin-bottom: clamp(0.75rem, 2vw, 1rem); }
-        .achievement-icon { flex-shrink: 0; width: clamp(32px, 6vw, 40px); height: clamp(32px, 6vw, 40px); display: grid; place-items: center; border-radius: clamp(6px, 1.5vw, 8px); }
-        .achievement-icon svg { width: clamp(20px, 4vw, 28px); height: clamp(20px, 4vw, 28px); }
-        .achievement-text strong { color: var(--text-dark-primary); font-size: clamp(0.85rem, 2.2vw, 1.1rem); font-weight: 700; display: block; line-height: 1.3; }
-        .achievement-text p { font-size: clamp(0.75rem, 2vw, 0.9rem); line-height: 1.4; margin: 0.25rem 0 0 0; }
-        .table-container { flex-grow: 1; overflow: auto; max-height: clamp(300px, 50vh, 400px); }
-        .performance-table { width: 100%; border-collapse: collapse; font-family: var(--font-family); font-size: clamp(0.75rem, 1.8vw, 0.9rem); }
-        .performance-table th, .performance-table td { padding: clamp(0.4rem, 1.2vw, 0.75rem) clamp(0.6rem, 1.8vw, 1rem); text-align: left; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .performance-table th { font-weight: 700; color: var(--text-dark-primary); position: sticky; top: 0; background: var(--card-bg); font-size: clamp(0.75rem, 1.8vw, 0.9rem); }
-        .performance-table td { font-weight: 500; }
-        .performance-table tbody tr:nth-child(even) { background-color: rgba(0,0,0,0.02); }
-        .performance-table .flagship-row { background-color: rgba(72, 202, 228, 0.1); }
-        .performance-table .growth-positive { color: #0f5132; font-weight: 700; }
-        .cta-button { display: inline-block; background-color: #0096c7; color: white; padding: clamp(0.6rem, 1.8vw, 0.75rem) clamp(1rem, 3vw, 1.5rem); border-radius: 25px; text-decoration: none; font-weight: 700; font-size: clamp(0.75rem, 1.8vw, 0.9rem); transition: all 0.3s var(--ease-out-quint); }
-        .cta-button:hover { background-color: var(--text-dark-primary); transform: translateY(-2px); }
-        .back-button { position: absolute; top: clamp(1rem, 3vw, 2rem); left: clamp(1rem, 3vw, 2rem); z-index: 10; }
-        @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(1rem, 2.5vw, 1.5rem); } }
-        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; } .page-header { padding-top: clamp(4rem, 4vw, 2rem); } }
-        @media (max-width: 600px) { body { padding: 0.5rem; } .glass-card { margin-bottom: 0.75rem; min-height: clamp(250px, 35vh, 300px); } .metric-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; } .achievement-item { flex-direction: row; align-items: center; gap: 0.5rem; } .achievement-icon { width: 28px; height: 28px; } .achievement-icon svg { width: 18px; height: 18px; } }
-        .chart-view canvas { width: 100% !important; height: 100% !important; }
+        .event-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            border-color: var(--selective-yellow);
+        }
+
+        .event-marker {
+            position: absolute;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            background: var(--selective-yellow);
+            border: 4px solid var(--prussian-blue);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.3);
+        }
+
+        .event-marker.milestone {
+            width: 32px;
+            height: 32px;
+            background: var(--ut-orange);
+            box-shadow: 0 0 0 4px rgba(251, 133, 0, 0.3);
+        }
+
+        .event-marker.crisis {
+            width: 36px;
+            height: 36px;
+            background: #ff4444;
+            box-shadow: 0 0 0 6px rgba(255, 68, 68, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--blue-green);
+            color: var(--prussian-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .event-day {
+            display: inline-block;
+            background: var(--ut-orange);
+            color: var(--prussian-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        .event-title {
+            font-size: 1.5em;
+            color: var(--selective-yellow);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .event-details {
+            color: var(--sky-blue);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .view-chart-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--selective-yellow), var(--ut-orange));
+            color: var(--prussian-blue);
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(251, 133, 0, 0.3);
+        }
+
+        .view-chart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(251, 133, 0, 0.5);
+        }
+
+        .view-chart-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Save scroll before navigation */
+        .view-chart-btn:focus {
+            outline: none;
+        }
+
+        .event-data {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--sky-blue);
+            margin-top: 15px;
+        }
+
+        .event-data h4 {
+            color: var(--selective-yellow);
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .data-label {
+            color: var(--sky-blue);
+        }
+
+        .data-value {
+            color: var(--selective-yellow);
+            font-weight: bold;
+        }
+
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .plant-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            text-align: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            font-size: 1.5em;
+            color: var(--sky-blue);
+        }
+
+        .error {
+            background: rgba(251, 133, 0, 0.2);
+            border: 2px solid var(--ut-orange);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px;
+            text-align: center;
+            color: var(--ut-orange);
+        }
+
+        @media (max-width: 1200px) {
+            .event-card {
+                width: 48%;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="page-header">
-            <a href="hydroponic_timeline.html" class="cta-button back-button">← Back to Timeline</a>
-            <h1>Hydroponic Dashboard</h1>
-            <p class="subtitle">Real-time Growth Data for Nai Miris Cultivation</p>
+        <header>
+            <a href="chart.html" class="chart-nav-btn">📊 View Charts</a>
+            <h1>🌱 Hydroponic Growth Journal</h1>
+            <p class="subtitle">Nai Miris PVC System - Growth Chronicle</p>
         </header>
 
-        <main class="dashboard-grid">
-            <div class="main-content">
-                 <div class="glass-card">
-                     <div class="card-content">
-                        <h2>Growth Analysis</h2>
-                        <div class="analysis-controls">
-                            <div class="chart-toggle-modern" id="chart-toggle-container">
-                                <div class="toggle-glider"></div>
-                                <button class="toggle-button active" data-chart="timeline">Timeline</button>
-                                <button class="toggle-button" data-chart="comparison">Comparison</button>
-                                <button class="toggle-button" data-chart="branches">Branches</button>
-                                <button class="toggle-button" data-chart="growthRate">Rate</button>
-                                <button class="toggle-button" data-chart="correlation">Correlation</button>
-                            </div>
-                            <div class="plant-selector" id="plant-selector-container">
-                                <!-- Plant selector buttons will be generated here -->
-                            </div>
-                        </div>
-                        
-                        <div class="chart-container">
-                            <div id="view-timeline" class="chart-view active"><canvas id="growthChart"></canvas></div>
-                            <div id="view-comparison" class="chart-view"><canvas id="comparisonChart"></canvas></div>
-                            <div id="view-branches" class="chart-view"><canvas id="branchChart"></canvas></div>
-                            <div id="view-growthRate" class="chart-view"><canvas id="growthRateChart"></canvas></div>
-                            <div id="view-correlation" class="chart-view"><canvas id="correlationChart"></canvas></div>
-                        </div>
-                     </div>
-                </div>
-                <div class="glass-card">
-                     <div class="card-content">
-                        <h2>Performance Data</h2>
-                        <div class="table-container">
-                            <table class="performance-table">
-                                <thead>
-                                    <tr><th>Plant No.</th><th>Initial (cm)</th><th>Final (cm)</th><th>Growth</th></tr>
-                                </thead>
-                                <tbody id="performance-table-body"></tbody>
-                            </table>
-                        </div>
-                     </div>
-                </div>
-            </div>
-            <div class="sidebar-content">
-                <div class="glass-card">
-                    <div class="card-content">
-                        <h2>Key Metrics</h2>
-                        <div class="metric-grid">
-                            <div class="metric-card"><div class="value"><span id="metric-max-size">0</span> cm</div><div class="label">Flagship Plant (#2)</div></div>
-                            <div class="metric-card"><div class="value"><span id="metric-avg-size">0</span> cm</div><div class="label">System Average Height</div></div>
-                            <div class="metric-card"><div class="value">45%+</div><div class="label">Sustained Weekly Growth</div></div>
-                            <div class="metric-card"><div class="value" id="metric-days">0</div><div class="label">Days Running</div></div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="glass-card">
-                    <div class="card-content">
-                        <h2>Key Achievements</h2>
-                        <ul class="achievement-list">
-                            <li class="achievement-item"><div class="achievement-icon" style="color: #10b981"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div><div class="achievement-text"><strong>Exceptional Growth</strong><p>Sustained 45%+ weekly growth rate.</p></div></li>
-                            <li class="achievement-item"><div class="achievement-icon" style="color: #8b5cf6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-l-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="achievement-text"><strong>Zero Deficiencies</strong><p>40+ consecutive days with no nutrient issues.</p></div></li>
-                            <li class="achievement-item"><div class="achievement-icon" style="color: #f59e0b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="achievement-text"><strong>Accelerated Flowering</strong><p>First branching in 5 weeks vs. 16 in soil.</p></div></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </main>
+        <div id="stats" class="stats-container"></div>
+        <div id="timeline" class="timeline-container">
+            <div class="loading">Loading journal entries...</div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            fetch('hydroponic_data.json')
-                .then(response => { if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } return response.json(); })
-                .then(rawData => { initializeDashboard(rawData); })
-                .catch(error => {
-                    console.error('Error loading or parsing JSON data:', error);
-                    alert('Failed to load plant data. Please ensure hydroponic_data.json is in the same directory and is accessible.');
-                });
+        // Enable automatic scroll restoration
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'auto';
+        }
 
-            function initializeDashboard(rawData) {
-                let selectedPlants = [2, 7, 9];
-                let chartInstances = {};
-                let activeChart = 'timeline';
-
-                const LATEST_DATE = '2025/9/18';
-                const START_DATE = '2025/8/2';
+        async function loadJournal() {
+            try {
+                const response = await fetch('event.json');
+                if (!response.ok) throw new Error('Failed to load event.json');
                 
-                const getDayNumber = (dateStr) => {
-                    const startDate = new Date(START_DATE).getTime();
-                    const currentDate = new Date(dateStr).getTime();
-                    return Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-                };
-
-                const latestDataAll = rawData.filter(d => d.date === LATEST_DATE);
-                const avgSize = 47.4; 
-                const maxSize = Math.max(...latestDataAll.map(p => p.size));
-                const daysRunning = getDayNumber(LATEST_DATE);
+                const data = await response.json();
+                const events = data.growth_timeline;
                 
-                const plantSelectorContainer = document.getElementById('plant-selector-container');
-                const performanceTableBody = document.getElementById('performance-table-body');
-                const chartToggleContainer = document.getElementById('chart-toggle-container');
-
-                function renderMetrics() {
-                    document.getElementById('metric-max-size').innerText = maxSize;
-                    document.getElementById('metric-avg-size').innerText = avgSize;
-                    document.getElementById('metric-days').innerText = daysRunning;
-                }
-
-                function renderPlantSelector() {
-                    plantSelectorContainer.innerHTML = '';
-                    for (let i = 1; i <= 16; i++) {
-                        const button = document.createElement('button');
-                        button.className = `plant-button ${selectedPlants.includes(i) ? 'active' : ''}`;
-                        button.innerText = `Plant #${i}`;
-                        button.dataset.plantNo = i;
-                        plantSelectorContainer.appendChild(button);
+                // Load chart data to check which dates have measurements
+                let chartDates = [];
+                try {
+                    const chartResponse = await fetch('data.json');
+                    if (chartResponse.ok) {
+                        const chartData = await chartResponse.json();
+                        chartDates = chartData.daily_growth_data.map(d => d.date);
                     }
-                }
-
-                function renderPerformanceTable() {
-                    performanceTableBody.innerHTML = '';
-                    for(let i = 1; i <= 16; i++) {
-                        const initial = rawData.find(d => d.date === START_DATE && d.plantNo === i);
-                        const final = rawData.find(d => d.date === LATEST_DATE && d.plantNo === i);
-                        if(!initial || !final) continue;
-
-                        const growth = ((final.size - initial.size) / initial.size * 100).toFixed(1);
-                        const row = document.createElement('tr');
-                        if([2, 7, 9].includes(i)) row.className = 'flagship-row';
-                        row.innerHTML = `<td><strong>#${i}</strong></td><td>${initial.size}</td><td>${final.size}</td><td class="growth-positive">+${growth}%</td>`;
-                        performanceTableBody.appendChild(row);
-                    }
+                } catch (e) {
+                    console.log('Chart data not available');
                 }
                 
-                const tooltipStyles = {
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(10px)',
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    borderWidth: 1,
-                    titleColor: '#023e8a',
-                    bodyColor: '#0077b6',
-                    padding: 12,
-                    cornerRadius: 10,
-                    titleFont: { weight: '700', size: 14 },
-                    bodyFont: { weight: '500', size: 13 }
-                };
+                renderStats(events);
+                renderTimeline(events, chartDates);
                 
-                Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-                Chart.defaults.color = '#0077b6';
-                Chart.defaults.font.weight = '500';
-                const chartColors = ['#00b4d8', '#48cae4', '#90e0ef', '#0077b6', '#023e8a'];
-                const dates = [...new Set(rawData.map(d => d.date))].sort((a,b) => new Date(a) - new Date(b));
-                
-                function destroyAllCharts() {
-                    Object.values(chartInstances).forEach(chart => chart.destroy());
-                    chartInstances = {};
-                }
-
-                function renderTimelineChart(type) {
-                    const ctx = document.getElementById(type === 'height' ? 'growthChart' : 'branchChart').getContext('2d');
-                    const yAxisLabel = type === 'height' ? 'Height (cm)' : 'Branch Count';
-                    
-                    const datasets = selectedPlants.map((plantNo, index) => {
-                        const color = chartColors[index % chartColors.length];
-                        const plantData = dates.map(date => {
-                            const dataPoint = rawData.find(d => d.date === date && d.plantNo === plantNo);
-                            return dataPoint ? dataPoint[type === 'height' ? 'size' : 'branches'] : null;
+                // After rendering, check if we need to restore scroll
+                setTimeout(() => {
+                    const savedScroll = sessionStorage.getItem('journalScroll');
+                    if (savedScroll && window.performance.navigation.type === 2) {
+                        window.scrollTo({
+                            top: parseInt(savedScroll),
+                            behavior: 'smooth'
                         });
-                        return { label: `Plant #${plantNo}`, data: plantData, borderColor: color, backgroundColor: color + '20', tension: 0.3, borderWidth: 3, pointRadius: 5, pointBackgroundColor: color, pointBorderColor: 'white', pointBorderWidth: 2, spanGaps: true, fill: false };
-                    });
-
-                    chartInstances[activeChart] = new Chart(ctx, { 
-                        type: 'line', 
-                        data: { labels: dates.map(d => `Day ${getDayNumber(d)}`), datasets }, 
-                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: yAxisLabel, color: '#023e8a', font: { weight: '700' } } }, x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } } }, interaction: { intersect: false, mode: 'index' }, plugins: { tooltip: { ...tooltipStyles }, legend: { labels: { usePointStyle: true } } } }
-                    });
-                }
-
-                function renderComparisonChart() {
-                    const ctx = document.getElementById('comparisonChart').getContext('2d');
-                    const sortedData = [...latestDataAll].sort((a,b) => b.size - a.size);
-                    
-                    chartInstances.comparison = new Chart(ctx, { 
-                        type: 'bar', 
-                        data: { 
-                            labels: sortedData.map(d => `#${d.plantNo}`), 
-                            datasets: [{ label: 'Final Height (cm)', data: sortedData.map(d => d.size), backgroundColor: sortedData.map(d => [2, 7, 9].includes(d.plantNo) ? '#00b4d8' : '#90e0ef'), borderRadius: 6 }] 
-                        }, 
-                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Height (cm)', color: '#023e8a', font: { weight: '700' } } } }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyles } } }
-                    });
-                }
-
-                function renderGrowthRateChart() {
-                    const ctx = document.getElementById('growthRateChart').getContext('2d');
-                    const rateLabels = [];
-                    for (let i = 0; i < dates.length - 1; i++) {
-                        rateLabels.push(`D${getDayNumber(dates[i])}-${getDayNumber(dates[i+1])}`);
+                        sessionStorage.removeItem('journalScroll');
                     }
-                    
-                    const datasets = selectedPlants.map((plantNo, index) => {
-                        const color = chartColors[index % chartColors.length];
-                        const plantData = rawData.filter(p => p.plantNo === plantNo).sort((a, b) => new Date(a.date) - new Date(b.date));
-                        const growthRates = [];
-                        for (let i = 0; i < plantData.length - 1; i++) {
-                            if (plantData[i].size > 0) {
-                                const rate = ((plantData[i+1].size - plantData[i].size) / plantData[i].size) * 100;
-                                growthRates.push(rate);
-                            } else {
-                                growthRates.push(0);
-                            }
-                        }
-                        return { label: `Plant #${plantNo}`, data: growthRates, backgroundColor: color, borderRadius: 4 };
-                    });
-
-                    chartInstances.growthRate = new Chart(ctx, {
-                        type: 'bar',
-                        data: { labels: rateLabels, datasets },
-                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Growth Rate (%)', color: '#023e8a', font: { weight: '700' } } } }, plugins: { tooltip: { ...tooltipStyles, callbacks: { label: (c) => `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } } } }
-                    });
-                }
+                }, 100);
                 
-                function renderCorrelationChart() {
-                    const ctx = document.getElementById('correlationChart').getContext('2d');
-                    const scatterData = latestDataAll.map(d => ({ x: d.size, y: d.branches, plantNo: d.plantNo }));
-                    
-                    chartInstances.correlation = new Chart(ctx, {
-                        type: 'scatter',
-                        data: {
-                            datasets: [{
-                                label: 'Plant Performance',
-                                data: scatterData,
-                                backgroundColor: scatterData.map(d => [2,7,9].includes(d.plantNo) ? '#0077b6' : '#48cae4'),
-                                pointRadius: 7,
-                                pointHoverRadius: 10
-                            }]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', title: { display: true, text: 'Final Height (cm)', color: '#023e8a', font: { weight: '700' } } }, y: { title: { display: true, text: 'Final Branch Count', color: '#023e8a', font: { weight: '700' } } } }, plugins: { legend: { display: false }, tooltip: { ...tooltipStyles, callbacks: { label: (c) => `Plant #${c.raw.plantNo}: ${c.raw.y} branches at ${c.raw.x} cm` } } } }
-                    });
-                }
-
-                function renderCharts() {
-                    destroyAllCharts();
-                    document.querySelectorAll('.chart-view').forEach(c => c.classList.remove('active'));
-                    document.getElementById(`view-${activeChart}`).classList.add('active');
-                    
-                    // Show/hide plant selector based on chart type
-                    const selectorNeedsPlants = ['timeline', 'branches', 'growthRate'];
-                    plantSelectorContainer.classList.toggle('hidden', !selectorNeedsPlants.includes(activeChart));
-
-                    switch(activeChart) {
-                        case 'timeline': renderTimelineChart('height'); break;
-                        case 'comparison': renderComparisonChart(); break;
-                        case 'branches': renderTimelineChart('branches'); break;
-                        case 'growthRate': renderGrowthRateChart(); break;
-                        case 'correlation': renderCorrelationChart(); break;
-                    }
-                }
-                
-                chartToggleContainer.addEventListener('click', (e) => {
-                    if (e.target.matches('.toggle-button')) {
-                        const clickedButton = e.target;
-                        activeChart = clickedButton.dataset.chart;
-                        
-                        // Update active button class
-                        chartToggleContainer.querySelector('.toggle-button.active').classList.remove('active');
-                        clickedButton.classList.add('active');
-                        
-                        // Animate glider
-                        const glider = chartToggleContainer.querySelector('.toggle-glider');
-                        glider.style.width = `${clickedButton.offsetWidth}px`;
-                        glider.style.transform = `translateX(${clickedButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
-                        
-                        renderCharts();
-                    }
-                });
-
-                plantSelectorContainer.addEventListener('click', (e) => {
-                    if(e.target.matches('.plant-button')) {
-                        const plantNo = parseInt(e.target.dataset.plantNo);
-                        if (selectedPlants.includes(plantNo)) {
-                            if (selectedPlants.length > 1) selectedPlants = selectedPlants.filter(p => p !== plantNo);
-                        } else {
-                            if (selectedPlants.length < 5) selectedPlants.push(plantNo);
-                        }
-                        renderPlantSelector();
-                        renderCharts();
-                    }
-                });
-
-                // Initial setup
-                renderMetrics();
-                renderPlantSelector();
-                renderPerformanceTable();
-                
-                // Set initial glider position
-                const initialActiveButton = chartToggleContainer.querySelector('.toggle-button.active');
-                const glider = chartToggleContainer.querySelector('.toggle-glider');
-                glider.style.width = `${initialActiveButton.offsetWidth}px`;
-                glider.style.transform = `translateX(${initialActiveButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
-                
-                renderCharts();
-                
-                window.addEventListener('resize', () => {
-                    const activeButton = chartToggleContainer.querySelector('.toggle-button.active');
-                    glider.style.width = `${activeButton.offsetWidth}px`;
-                    glider.style.transform = `translateX(${activeButton.offsetLeft - chartToggleContainer.firstElementChild.offsetLeft}px)`;
-                });
+            } catch (error) {
+                document.getElementById('timeline').innerHTML = `
+                    <div class="error">
+                        <h2>⚠️ Error Loading Journal</h2>
+                        <p>${error.message}</p>
+                        <p>Make sure event.json is in the same directory as this HTML file.</p>
+                    </div>
+                `;
             }
-        });
+        }
+
+        function renderStats(events) {
+            const totalDays = events[events.length - 1].day;
+            const totalEvents = events.length;
+            
+            const milestones = events.filter(e => 
+                e.title.toLowerCase().includes('breakthrough') ||
+                e.title.toLowerCase().includes('peak') ||
+                e.title.toLowerCase().includes('crisis') ||
+                e.title.toLowerCase().includes('recovery') ||
+                e.title.toLowerCase().includes('maximum')
+            ).length;
+
+            const statsHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${totalDays}</div>
+                    <div class="stat-label">Total Days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${totalEvents}</div>
+                    <div class="stat-label">Events Logged</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${milestones}</div>
+                    <div class="stat-label">Key Milestones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">Plants</div>
+                </div>
+            `;
+            
+            document.getElementById('stats').innerHTML = statsHTML;
+        }
+
+        function renderTimeline(events, chartDates) {
+            const isMilestone = (title) => {
+                const keywords = ['breakthrough', 'peak', 'maximum', 'explosion', 'revolutionary', 'first'];
+                return keywords.some(k => title.toLowerCase().includes(k));
+            };
+
+            const isCrisis = (title) => {
+                const keywords = ['crisis', 'critical', 'failure', 'catastrophic'];
+                return keywords.some(k => title.toLowerCase().includes(k));
+            };
+
+            let timelineHTML = '<div class="timeline-line"></div>';
+            
+            events.forEach((event, index) => {
+                const side = index % 2 === 0 ? 'left' : 'right';
+                const milestone = isMilestone(event.title);
+                const crisis = isCrisis(event.title);
+                const hasChartData = chartDates.includes(event.date);
+                
+                timelineHTML += `
+                    <div class="timeline-event ${side}">
+                        <div class="event-card">
+                            <div>
+                                <span class="event-date">${event.date}</span>
+                                <span class="event-day">Day ${event.day}</span>
+                            </div>
+                            <h2 class="event-title">${event.title}</h2>
+                            <p class="event-details">${event.details}</p>
+                            ${hasChartData ? `<a href="chart.html?date=${event.date}" class="view-chart-btn" onclick="sessionStorage.setItem('journalScroll', window.scrollY)">📊 View Chart Data</a>` : ''}
+                            ${event.data ? renderEventData(event.data) : ''}
+                            ${event.system_specifications ? renderEventData({system_specifications: event.system_specifications}) : ''}
+                        </div>
+                        <div class="event-marker ${crisis ? 'crisis' : milestone ? 'milestone' : ''}"></div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('timeline').innerHTML = timelineHTML;
+        }
+
+        function renderEventData(data) {
+            let html = '<div class="event-data"><h4>📊 Data Points</h4>';
+            
+            for (const [key, value] of Object.entries(data)) {
+                if (key === 'system_specifications') {
+                    html += `<h4 style="margin-top: 15px;">🔧 System Specifications</h4>`;
+                    for (const [specKey, specValue] of Object.entries(value)) {
+                        html += `<div class="data-item">
+                            <span class="data-label">${formatLabel(specKey)}:</span>
+                            <span class="data-value">${specValue}</span>
+                        </div>`;
+                    }
+                } else if (key === 'plant_growth') {
+                    html += `<div class="plant-grid">`;
+                    value.forEach(plant => {
+                        html += `<div class="plant-item">
+                            Plant ${plant.plant}<br>
+                            ${plant.start_cm}→${plant.end_cm}cm<br>
+                            <strong>${plant.growth_percent}%</strong>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                } else if (key === 'plant_growth_4_days') {
+                    html += `<div class="plant-grid">`;
+                    value.forEach(plant => {
+                        html += `<div class="plant-item">
+                            Plant ${plant.plant}: <strong>${plant.growth_percent}%</strong>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                } else if (key === 'plant_details') {
+                    html += `<div class="plant-grid">`;
+                    value.forEach(plant => {
+                        html += `<div class="plant-item">
+                            P${plant.plant}: ${plant.height_cm}cm<br>
+                            ${plant.branches} branches
+                        </div>`;
+                    });
+                    html += `</div>`;
+                } else if (typeof value === 'object' && !Array.isArray(value)) {
+                    for (const [subKey, subValue] of Object.entries(value)) {
+                        html += `<div class="data-item">
+                            <span class="data-label">${formatLabel(subKey)}:</span>
+                            <span class="data-value">${subValue}</span>
+                        </div>`;
+                    }
+                } else if (!Array.isArray(value)) {
+                    html += `<div class="data-item">
+                        <span class="data-label">${formatLabel(key)}:</span>
+                        <span class="data-value">${value}</span>
+                    </div>`;
+                }
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        function formatLabel(str) {
+            return str.replace(/_/g, ' ')
+                      .replace(/\b\w/g, l => l.toUpperCase())
+                      .replace(/Cm/g, '(cm)')
+                      .replace(/Percent/g, '(%)')
+                      .replace(/G\b/g, '(g)');
+        }
+
+        loadJournal();
     </script>
 </body>
 </html>

@@ -1,0 +1,227 @@
+{
+  "growth_timeline": [
+   {
+  "date": "2025-07-11",
+  "day": 1,
+  "title": "System Setup & Transplanting ",
+  "details": "The hydroponic system was set up. Critically, 16 nai miris plants of various initial sizes were transplanted from the ground, not started from seed. This explains the consistent size differences throughout the project, with Plant 2 starting as the largest and Plant 11 as the smallest.",
+  "system_specifications": {
+    "type": "Rain water square gutter PVC system (14 feet long)",
+    "motor": "26W 1200L/H",
+    "aeration": "Air pump with multiple air stones",
+    "total_capacity_L": "30-40",
+    "plant_count_initial": 16,
+    "plant_species": "Nai Miris (Native Sri Lankan Scotch Bonnet)",
+    "growing_medium": "50% burnt rice husk + 50% coco peat",
+    "location": "Colombo, Western Province, LK"
+  }
+},
+    {
+      "date": "2025-07-25",
+      "day": 15,
+      "title": "Establishment Phase & First Fertilization",
+      "details": "After two weeks of adapting from soil to the hydroponic environment, the first fertilizer dose was applied to the system.",
+      "data": {"fertilizer": "45g Nitro Plus"}
+    },
+    {
+      "date": "2025-08-02",
+      "day": 23,
+      "title": "Significant Growth Observed",
+      "details": "A sample plant's leaves had doubled in size since transplanting, showing strong, healthy development. Growth rate was assessed at 8/10."
+    },
+    {
+      "date": "2025-08-10",
+      "day": 31,
+      "title": "First Systematic Measurements & Fertilization",
+      "details": "The first systematic measurements for all 16 plants were recorded, showing exceptional leaf development. A standard maintenance dose of fertilizer was applied. Growth rate assessed at 9.5/10.",
+      "data": {"fertilizer": "45g Nitro Plus"}
+    },
+    {
+      "date": "2025-08-15",
+      "day": 36,
+      "title": "Maximum Hydroponic Efficiency Achieved",
+      "details": "The system reached its peak performance, with an average weekly growth rate of 45%. Plant 2 maintained its lead due to its large initial transplant size. Growth rate was assessed at 10/10.",
+      "data": {
+        "average_growth_5_days_percent": 32,
+        "plant_growth": [
+          {"plant": 1, "start_cm": 9.5, "end_cm": 13, "growth_percent": 37},
+          {"plant": 2, "start_cm": 15, "end_cm": 21, "growth_percent": 40},
+          {"plant": 9, "start_cm": 12.5, "end_cm": 15, "growth_percent": 20}
+        ]
+      }
+    },
+    {
+      "date": "2025-08-17",
+      "day": 38,
+      "title": "Unprecedented Sustained Growth",
+      "details": "Growth continued at an exceptional rate of over 30% every two days, confirming Plant 2's flagship status.",
+      "data": {
+        "plant_growth": [
+          {"plant": 1, "start_cm": 13, "end_cm": 16.5, "growth_percent": 27},
+          {"plant": 2, "start_cm": 21, "end_cm": 27, "growth_percent": 29},
+          {"plant": 9, "start_cm": 15, "end_cm": 21, "growth_percent": 40}
+        ]
+      }
+    },
+    {
+      "date": "2025-08-20",
+      "day": 41,
+      "title": "Growth Continues into Pre-Flowering",
+      "details": "Rapid growth was maintained even as the plants began entering their pre-flowering phase.",
+      "data": {
+        "plant_growth": [
+          {"plant": 1, "start_cm": 16.5, "end_cm": 19, "growth_percent": 15},
+          {"plant": 2, "start_cm": 27, "end_cm": 30, "growth_percent": 11},
+          {"plant": 9, "start_cm": 21, "end_cm": 24.5, "growth_percent": 17}
+        ]
+      }
+    },
+    {
+      "date": "2025-08-25",
+      "day": 46,
+      "title": "Breakthrough: First Branching",
+      "details": "A major milestone was reached as the first branches (1-2 per plant) were observed system-wide, indicating an early entry into the reproductive phase.",
+      "data": {
+        "plant_growth": [
+          {"plant": 1, "start_cm": 19, "end_cm": 23.5, "growth_percent": 24},
+          {"plant": 2, "start_cm": 30, "end_cm": 37, "growth_percent": 23},
+          {"plant": 9, "start_cm": 24.5, "end_cm": 33, "growth_percent": 35}
+        ]
+      }
+    },
+    {
+      "date": "2025-08-27",
+      "day": 48,
+      "title": "First Flowers & Increased Fertilization",
+      "details": "The first flowers were observed. Leaf quality was noted as exhibition-grade. Due to the significantly expanded plant mass, the fertilizer dose was increased by 33%.",
+      "data": {
+          "fertilizer": "60g Nitro Plus",
+          "plant_growth": [
+            {"plant": 1, "start_cm": 23.5, "end_cm": 26, "growth_percent": 11},
+            {"plant": 2, "start_cm": 37, "end_cm": 41, "growth_percent": 11},
+            {"plant": 9, "start_cm": 33, "end_cm": 36, "growth_percent": 9}
+        ]
+      }
+    },
+    {
+      "date": "2025-08-31",
+      "day": 52,
+      "title": "Complete System Measurements",
+      "details": "Full plant measurements were taken, confirming strong growth across the board and identifying Plant 9 as the 'Second Flagship'.",
+      "data": {
+        "plant_growth_4_days": [
+            {"plant": 1, "growth_percent": 19}, {"plant": 2, "growth_percent": 22}, {"plant": 3, "growth_percent": 20}, {"plant": 4, "growth_percent": 24},
+            {"plant": 5, "growth_percent": 23}, {"plant": 6, "growth_percent": 21}, {"plant": 7, "growth_percent": 24}, {"plant": 8, "growth_percent": 24},
+            {"plant": 9, "growth_percent": 19}, {"plant": 10, "growth_percent": 29}, {"plant": 11, "growth_percent": 7}, {"plant": 12, "growth_percent": 24},
+            {"plant": 13, "growth_percent": 25}, {"plant": 14, "growth_percent": 14}, {"plant": 15, "growth_percent": 29}, {"plant": 16, "growth_percent": 36}
+        ]
+      }
+    },
+    {
+      "date": "2025-09-03",
+      "day": 55,
+      "title": "Nutrient Deficiency Appears",
+      "details": "While Plant 2 continued its top-tier performance, Plants 1 & 3 began showing pale, yellowish leaves, confirming a nutrient deficiency. This was later determined to be caused by a leak, not a system-wide nutrient lack."
+    },
+    {
+      "date": "2025-09-05",
+      "day": 57,
+      "title": "Detailed Branching Analysis",
+      "details": "A detailed analysis of Plant 2 showed it had 12-15 visible branches with massive secondary branching, a complex multi-level architecture. Its dominance was attributed to both its large initial size and superior growth response. Active flower removal was ongoing to promote further branching."
+    },
+    {
+      "date": "2025-09-12",
+      "day": 64,
+      "title": "Flowering Phase Launch & Branching Explosion",
+      "details": "A system-wide explosion in branching occurred as plants entered the flowering phase, with total branches exceeding 130. The flower removal strategy was deemed a success, having created 3-5x normal branching density.",
+      "data": {
+        "total_branches": "130+", "average_branches_per_plant": 8.1,
+        "plant_details": [
+          {"plant": 1, "height_cm": 45, "branches": 18}, {"plant": 2, "height_cm": "65-67", "branches": "41-45"}, {"plant": 3, "height_cm": 38, "branches": 4},
+          {"plant": 4, "height_cm": 44, "branches": 6}, {"plant": 5, "height_cm": 28, "branches": 4}, {"plant": 6, "height_cm": 31, "branches": 2},
+          {"plant": 7, "height_cm": "45-47", "branches": 21}, {"plant": 8, "height_cm": 34, "branches": 2}, {"plant": 9, "height_cm": "57-60", "branches": 16},
+          {"plant": 10, "height_cm": 44, "branches": 10}, {"plant": 11, "height_cm": 16, "branches": 1}, {"plant": 12, "height_cm": 34, "branches": 2},
+          {"plant": 13, "height_cm": 14, "branches": 1}, {"plant": 14, "height_cm": 14, "branches": 1}, {"plant": 15, "height_cm": 28, "branches": 1},
+          {"plant": 16, "height_cm": 35, "branches": 2}
+        ]
+      }
+    },
+    {
+      "date": "2025-09-13",
+      "day": 65,
+      "title": "Tank Leak Crisis Resolved & Strategy Shift",
+      "details": "A 20L tank leak was confirmed as the cause of the nutrient deficiency. Daily water additions (8-12L) restored green leaf color. A new 'Staggered Nutrition Plan' was launched, using a mixed fertilizer to support both flowering and vegetative growth simultaneously.",
+      "data": {"fertilizer": "30g Nitro Plus + 15g Bloom Special", "water_consumption_percent": "40-50"}
+    },
+    {
+      "date": "2025-09-18",
+      "day": 70,
+      "title": "Revolutionary Branching & Dosing Error",
+      "details": "Plant 2 achieved an exceptional 78 branches. The entire system's branch count doubled to 270+ in just 6 days. A critical 70% underdosing of fertilizer was accidentally made during this peak growth period.",
+      "data": {"plant_2_branches": 78, "total_system_branches": "270+", "fertilizer_error": "Underdosed by 70%"}
+    },
+    {
+      "date": "2025-09-19",
+      "day": 71,
+      "title": "Corrective Fertilizer Action",
+      "details": "A large corrective dose of approximately 76.5g of mixed fertilizer was applied to prevent nutrient deficiency after the previous day's error."
+    },
+    {
+      "date": "2025-09-24",
+      "day": 76,
+      "title": "Flagship Plant Growth Update",
+      "details": "The flagship plant (Plant 2) continued its strong growth, increasing in height from 76cm to 82.5cm."
+    },
+    {
+      "date": "2025-10-01",
+      "day": 83,
+      "title": "Final Pre-Crisis Measurement & Fruit Production",
+      "details": "Final measurements before a major system event showed Plant 2 at 82cm in height with an impressive 125 branches and 22 developing fruits. The system total reached over 438 branches.",
+      "data": {"plant_2_status": {"height_cm": 82, "branches": 125, "fruits": 22}}
+    },
+    {
+      "date": "2025-10-06",
+      "day": 88,
+      "title": "CRITICAL: System-Wide Failure Detected",
+      "details": "A catastrophic system failure was diagnosed as critical fungal root rot (likely Pythium) due to insufficient dissolved oxygen from massive root biomass and high water temperatures. Emergency protocols were initiated: all fertilizer was halted, and H₂O₂ and Topsin fungicide were applied."
+    },
+    {
+      "date": "2025-10-18",
+      "day": 100,
+      "title": "Recovery Milestone: New Root Growth Confirmed",
+      "details": "A major breakthrough in recovery: thick, bright white, healthy new roots were visually confirmed on 4 of the 16 plants, signaling the success of the treatment. A highly-diluted 'Recovery Dose' of fertilizer was initiated."
+    },
+    {
+      "date": "2025-10-20",
+      "day": 102,
+      "title": "Recovery Accelerates",
+      "details": "Plants began showing signs of nutrient deficiency (yellowing), a positive indicator that the new root systems were actively feeding and hungry for nutrients."
+    },
+    {
+      "date": "2025-10-22",
+      "day": 104,
+      "title": "Strategic Shift in Recovery",
+      "details": "Color began returning to the strongest plants. It was confirmed that the weakest plants with the most severe root damage were not recovering. A decision was made to focus all resources on the survivors."
+    },
+    {
+      "date": "2025-10-24",
+      "day": 106,
+      "title": "Strategic Root Boost Initiated",
+      "details": "A new strategy, a 4-day 'Root Supercharger' plan, was implemented. All fruit (~30 peppers) was harvested from Plant 2 to redirect its energy to root recovery. The first dose of a high-phosphorus fertilizer was applied.",
+      "data": {"fertilizer": "10g Grow More Plant Starter (10-52-10)"}
+    },
+    {
+      "date": "2025-10-27",
+      "day": 109,
+      "title": "Root Boost Completed",
+      "details": "The 4-day, 40g total application of the high-phosphorus fertilizer was completed. As expected, the plants appeared pale and hungry, indicating the root systems were ready for a balanced diet."
+    },
+    {
+      "date": "2025-10-28",
+      "day": 110,
+      "title": "Balanced Recovery Feeding Begins",
+      "details": "The weakest and non-recovering plants were removed from the system. A new daily feeding plan was initiated using a balanced fertilizer to provide a steady, gentle supply of nutrition to the strong new root systems.",
+      "data": {"fertilizer_plan": "5g of YaraMila (14-14-21) per day for 5 days"}
+    }
+  ]
+}

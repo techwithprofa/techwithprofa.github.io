@@ -1,0 +1,268 @@
+{
+  "dataset_title": "Hydroponic Nai Miris Growth Data - Complete Dataset",
+  "data_collection_period": "August 2, 2025 - October 1, 2025",
+  "daily_growth_data": [
+    {
+      "date": "2025-08-02",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 6.5, "leaf_count": 5, "branches": null},
+        {"plant_no": 2, "size_cm": 10, "leaf_count": 6, "branches": null},
+        {"plant_no": 3, "size_cm": 4.5, "leaf_count": 4, "branches": null},
+        {"plant_no": 4, "size_cm": 4, "leaf_count": 4, "branches": null},
+        {"plant_no": 5, "size_cm": 2, "leaf_count": 4, "branches": null},
+        {"plant_no": 6, "size_cm": 5, "leaf_count": 4, "branches": null},
+        {"plant_no": 7, "size_cm": 6, "leaf_count": 5, "branches": null},
+        {"plant_no": 8, "size_cm": 3.5, "leaf_count": 3, "branches": null},
+        {"plant_no": 9, "size_cm": 7, "leaf_count": 4, "branches": null},
+        {"plant_no": 10, "size_cm": 4.5, "leaf_count": 4, "branches": null},
+        {"plant_no": 11, "size_cm": 2.5, "leaf_count": 2, "branches": null},
+        {"plant_no": 12, "size_cm": 4, "leaf_count": 4, "branches": null},
+        {"plant_no": 13, "size_cm": 3.5, "leaf_count": 3, "branches": null},
+        {"plant_no": 14, "size_cm": 2, "leaf_count": 1, "branches": null},
+        {"plant_no": 15, "size_cm": 3, "leaf_count": 2, "branches": null},
+        {"plant_no": 16, "size_cm": 3.5, "leaf_count": 4, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-08-10",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 9.5, "leaf_count": 6, "branches": null},
+        {"plant_no": 2, "size_cm": 15, "leaf_count": 10, "branches": null},
+        {"plant_no": 3, "size_cm": 7, "leaf_count": 5, "branches": null},
+        {"plant_no": 4, "size_cm": 6, "leaf_count": 6, "branches": null},
+        {"plant_no": 5, "size_cm": 4, "leaf_count": 5, "branches": null},
+        {"plant_no": 6, "size_cm": 4, "leaf_count": 4, "branches": null},
+        {"plant_no": 7, "size_cm": 8.5, "leaf_count": 7, "branches": null},
+        {"plant_no": 8, "size_cm": 6, "leaf_count": 4, "branches": null},
+        {"plant_no": 9, "size_cm": 12.5, "leaf_count": 6, "branches": null},
+        {"plant_no": 10, "size_cm": 7.5, "leaf_count": 5, "branches": null},
+        {"plant_no": 11, "size_cm": 3.5, "leaf_count": 4, "branches": null},
+        {"plant_no": 12, "size_cm": 4.5, "leaf_count": 4, "branches": null},
+        {"plant_no": 13, "size_cm": 3.5, "leaf_count": 4, "branches": null},
+        {"plant_no": 14, "size_cm": 3.5, "leaf_count": 3, "branches": null},
+        {"plant_no": 15, "size_cm": 3, "leaf_count": 4, "branches": null},
+        {"plant_no": 16, "size_cm": 4.5, "leaf_count": 5, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-08-15",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 13, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": 21, "leaf_count": null, "branches": null},
+        {"plant_no": 3, "size_cm": 10, "leaf_count": null, "branches": null},
+        {"plant_no": 4, "size_cm": 9.5, "leaf_count": null, "branches": null},
+        {"plant_no": 5, "size_cm": 5.5, "leaf_count": null, "branches": null},
+        {"plant_no": 6, "size_cm": 5.5, "leaf_count": null, "branches": null},
+        {"plant_no": 7, "size_cm": 11, "leaf_count": null, "branches": null},
+        {"plant_no": 8, "size_cm": 6.5, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 15, "leaf_count": null, "branches": null},
+        {"plant_no": 10, "size_cm": 7.5, "leaf_count": null, "branches": null},
+        {"plant_no": 11, "size_cm": 3.5, "leaf_count": null, "branches": null},
+        {"plant_no": 12, "size_cm": 4.5, "leaf_count": null, "branches": null},
+        {"plant_no": 13, "size_cm": 3.5, "leaf_count": null, "branches": null},
+        {"plant_no": 14, "size_cm": 3.5, "leaf_count": null, "branches": null},
+        {"plant_no": 15, "size_cm": 4, "leaf_count": null, "branches": null},
+        {"plant_no": 16, "size_cm": 5, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-08-17",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 16.5, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": 27, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 21, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-08-20",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 19, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": 30, "leaf_count": null, "branches": null},
+        {"plant_no": 3, "size_cm": 14.5, "leaf_count": null, "branches": null},
+        {"plant_no": 4, "size_cm": 15, "leaf_count": null, "branches": null},
+        {"plant_no": 5, "size_cm": 9.5, "leaf_count": null, "branches": null},
+        {"plant_no": 6, "size_cm": 9, "leaf_count": null, "branches": null},
+        {"plant_no": 7, "size_cm": 17, "leaf_count": null, "branches": null},
+        {"plant_no": 8, "size_cm": 10, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 24.5, "leaf_count": null, "branches": null},
+        {"plant_no": 10, "size_cm": 11, "leaf_count": null, "branches": null},
+        {"plant_no": 11, "size_cm": 5, "leaf_count": null, "branches": null},
+        {"plant_no": 12, "size_cm": 10, "leaf_count": null, "branches": null},
+        {"plant_no": 13, "size_cm": 5.5, "leaf_count": null, "branches": null},
+        {"plant_no": 14, "size_cm": 5, "leaf_count": null, "branches": null},
+        {"plant_no": 15, "size_cm": 7, "leaf_count": null, "branches": null},
+        {"plant_no": 16, "size_cm": 7.5, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-08-25",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 23.5, "leaf_count": 13, "branches": 1},
+        {"plant_no": 2, "size_cm": 37, "leaf_count": 28, "branches": 2},
+        {"plant_no": 3, "size_cm": 16, "leaf_count": 10, "branches": 1},
+        {"plant_no": 4, "size_cm": 20.5, "leaf_count": 16, "branches": 1},
+        {"plant_no": 5, "size_cm": 11.5, "leaf_count": 9, "branches": 1},
+        {"plant_no": 6, "size_cm": 13, "leaf_count": 9, "branches": 1},
+        {"plant_no": 7, "size_cm": 22, "leaf_count": 16, "branches": 1},
+        {"plant_no": 8, "size_cm": 14, "leaf_count": 7, "branches": 1},
+        {"plant_no": 9, "size_cm": 33, "leaf_count": 16, "branches": 1},
+        {"plant_no": 10, "size_cm": 15.5, "leaf_count": 12, "branches": 1},
+        {"plant_no": 11, "size_cm": 6, "leaf_count": 8, "branches": 1},
+        {"plant_no": 12, "size_cm": 13, "leaf_count": 10, "branches": 1},
+        {"plant_no": 13, "size_cm": 6, "leaf_count": 6, "branches": 1},
+        {"plant_no": 14, "size_cm": 6.5, "leaf_count": 5, "branches": 1},
+        {"plant_no": 15, "size_cm": 11, "leaf_count": 7, "branches": 1},
+        {"plant_no": 16, "size_cm": 12, "leaf_count": 8, "branches": 1}
+      ]
+    },
+    {
+      "date": "2025-08-27",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 26, "leaf_count": null, "branches": 2},
+        {"plant_no": 2, "size_cm": 41, "leaf_count": null, "branches": 13},
+        {"plant_no": 3, "size_cm": 17.5, "leaf_count": null, "branches": 1},
+        {"plant_no": 4, "size_cm": 22.5, "leaf_count": null, "branches": 2},
+        {"plant_no": 5, "size_cm": 13, "leaf_count": null, "branches": 1},
+        {"plant_no": 6, "size_cm": 14, "leaf_count": null, "branches": 1},
+        {"plant_no": 7, "size_cm": 24.5, "leaf_count": null, "branches": 2},
+        {"plant_no": 8, "size_cm": 14.5, "leaf_count": null, "branches": 1},
+        {"plant_no": 9, "size_cm": 36, "leaf_count": null, "branches": 2},
+        {"plant_no": 10, "size_cm": 17, "leaf_count": null, "branches": 2},
+        {"plant_no": 11, "size_cm": 7, "leaf_count": null, "branches": 1},
+        {"plant_no": 12, "size_cm": 14.5, "leaf_count": null, "branches": 1},
+        {"plant_no": 13, "size_cm": 6, "leaf_count": null, "branches": 1},
+        {"plant_no": 14, "size_cm": 7, "leaf_count": null, "branches": 1},
+        {"plant_no": 15, "size_cm": 12, "leaf_count": null, "branches": 1},
+        {"plant_no": 16, "size_cm": 12.5, "leaf_count": null, "branches": 1}
+      ]
+    },
+    {
+      "date": "2025-08-31",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 31, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": 50, "leaf_count": null, "branches": null},
+        {"plant_no": 3, "size_cm": 21, "leaf_count": null, "branches": null},
+        {"plant_no": 4, "size_cm": 28, "leaf_count": null, "branches": null},
+        {"plant_no": 5, "size_cm": 16, "leaf_count": null, "branches": null},
+        {"plant_no": 6, "size_cm": 17, "leaf_count": null, "branches": null},
+        {"plant_no": 7, "size_cm": 30.5, "leaf_count": null, "branches": null},
+        {"plant_no": 8, "size_cm": 18, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 43, "leaf_count": null, "branches": null},
+        {"plant_no": 10, "size_cm": 22, "leaf_count": null, "branches": null},
+        {"plant_no": 11, "size_cm": 7.5, "leaf_count": null, "branches": null},
+        {"plant_no": 12, "size_cm": 18, "leaf_count": null, "branches": null},
+        {"plant_no": 13, "size_cm": 7.5, "leaf_count": null, "branches": null},
+        {"plant_no": 14, "size_cm": 8, "leaf_count": null, "branches": null},
+        {"plant_no": 15, "size_cm": 15.5, "leaf_count": null, "branches": null},
+        {"plant_no": 16, "size_cm": 17, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-09-03",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 33, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": 55, "leaf_count": null, "branches": null},
+        {"plant_no": 3, "size_cm": 25, "leaf_count": null, "branches": null},
+        {"plant_no": 4, "size_cm": 31, "leaf_count": null, "branches": null},
+        {"plant_no": 5, "size_cm": 19, "leaf_count": null, "branches": null},
+        {"plant_no": 6, "size_cm": 18.5, "leaf_count": null, "branches": null},
+        {"plant_no": 7, "size_cm": 36.5, "leaf_count": null, "branches": null},
+        {"plant_no": 8, "size_cm": 20, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 48, "leaf_count": null, "branches": null},
+        {"plant_no": 10, "size_cm": 26, "leaf_count": null, "branches": null},
+        {"plant_no": 11, "size_cm": 11, "leaf_count": null, "branches": null},
+        {"plant_no": 12, "size_cm": 21, "leaf_count": null, "branches": null},
+        {"plant_no": 13, "size_cm": 9, "leaf_count": null, "branches": null},
+        {"plant_no": 14, "size_cm": 9, "leaf_count": null, "branches": null},
+        {"plant_no": 15, "size_cm": 22, "leaf_count": null, "branches": null},
+        {"plant_no": 16, "size_cm": 18, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-09-12",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 45, "leaf_count": null, "branches": 18},
+        {"plant_no": 2, "size_cm": 66, "leaf_count": null, "branches": 44},
+        {"plant_no": 3, "size_cm": 38, "leaf_count": null, "branches": 4},
+        {"plant_no": 4, "size_cm": 44, "leaf_count": null, "branches": 6},
+        {"plant_no": 5, "size_cm": 28, "leaf_count": null, "branches": 4},
+        {"plant_no": 6, "size_cm": 31, "leaf_count": null, "branches": 2},
+        {"plant_no": 7, "size_cm": 46, "leaf_count": null, "branches": 21},
+        {"plant_no": 8, "size_cm": 34, "leaf_count": null, "branches": 2},
+        {"plant_no": 9, "size_cm": 58, "leaf_count": null, "branches": 16},
+        {"plant_no": 10, "size_cm": 44, "leaf_count": null, "branches": 10},
+        {"plant_no": 11, "size_cm": 16, "leaf_count": null, "branches": 1},
+        {"plant_no": 12, "size_cm": 34, "leaf_count": null, "branches": 2},
+        {"plant_no": 13, "size_cm": 14, "leaf_count": null, "branches": 1},
+        {"plant_no": 14, "size_cm": 14, "leaf_count": null, "branches": 1},
+        {"plant_no": 15, "size_cm": 28, "leaf_count": null, "branches": 1},
+        {"plant_no": 16, "size_cm": 35, "leaf_count": null, "branches": 2}
+      ]
+    },
+    {
+      "date": "2025-09-18",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 45, "leaf_count": null, "branches": 31},
+        {"plant_no": 2, "size_cm": 76, "leaf_count": null, "branches": 78},
+        {"plant_no": 3, "size_cm": 53, "leaf_count": null, "branches": 10},
+        {"plant_no": 4, "size_cm": 53, "leaf_count": null, "branches": 14},
+        {"plant_no": 5, "size_cm": 40, "leaf_count": null, "branches": 11},
+        {"plant_no": 6, "size_cm": 46, "leaf_count": null, "branches": 4},
+        {"plant_no": 7, "size_cm": 61, "leaf_count": null, "branches": 37},
+        {"plant_no": 8, "size_cm": 45, "leaf_count": null, "branches": 3},
+        {"plant_no": 9, "size_cm": 61, "leaf_count": null, "branches": 43},
+        {"plant_no": 10, "size_cm": 58, "leaf_count": null, "branches": 20},
+        {"plant_no": 11, "size_cm": 24, "leaf_count": null, "branches": 4},
+        {"plant_no": 12, "size_cm": 47, "leaf_count": null, "branches": 4},
+        {"plant_no": 13, "size_cm": 20, "leaf_count": null, "branches": 4},
+        {"plant_no": 14, "size_cm": 22, "leaf_count": null, "branches": 1},
+        {"plant_no": 15, "size_cm": 40, "leaf_count": null, "branches": 4},
+        {"plant_no": 16, "size_cm": 49, "leaf_count": null, "branches": 2}
+      ]
+    },
+    {
+      "date": "2025-09-24",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": 50, "leaf_count": null, "branches": null},
+        {"plant_no": 2, "size_cm": "80-85", "leaf_count": null, "branches": null},
+        {"plant_no": 3, "size_cm": 64, "leaf_count": null, "branches": null},
+        {"plant_no": 4, "size_cm": 60, "leaf_count": null, "branches": null},
+        {"plant_no": 5, "size_cm": 50, "leaf_count": null, "branches": null},
+        {"plant_no": 6, "size_cm": 60, "leaf_count": null, "branches": null},
+        {"plant_no": 7, "size_cm": 68, "leaf_count": null, "branches": null},
+        {"plant_no": 8, "size_cm": 52, "leaf_count": null, "branches": null},
+        {"plant_no": 9, "size_cm": 70, "leaf_count": null, "branches": null},
+        {"plant_no": 10, "size_cm": 60, "leaf_count": null, "branches": null},
+        {"plant_no": 11, "size_cm": 30, "leaf_count": null, "branches": null},
+        {"plant_no": 12, "size_cm": 56, "leaf_count": null, "branches": null},
+        {"plant_no": 13, "size_cm": 30, "leaf_count": null, "branches": null},
+        {"plant_no": 14, "size_cm": 30, "leaf_count": null, "branches": null},
+        {"plant_no": 15, "size_cm": 50, "leaf_count": null, "branches": null},
+        {"plant_no": 16, "size_cm": 58, "leaf_count": null, "branches": null}
+      ]
+    },
+    {
+      "date": "2025-10-01",
+      "plant_data": [
+        {"plant_no": 1, "size_cm": "68-72", "leaf_count": null, "branches": "35", "food_count": null},
+        {"plant_no": 2, "size_cm": "81-83", "leaf_count": null, "branches": "120-130", "food_count": "20-24"},
+        {"plant_no": 3, "size_cm": "65-67", "leaf_count": null, "branches": "14", "food_count": null},
+        {"plant_no": 4, "size_cm": "60-63", "leaf_count": null, "branches": "23", "food_count": null},
+        {"plant_no": 5, "size_cm": "50-53", "leaf_count": null, "branches": "19-20", "food_count": null},
+        {"plant_no": 6, "size_cm": "69-62", "leaf_count": null, "branches": "15", "food_count": null},
+        {"plant_no": 7, "size_cm": "70-74", "leaf_count": null, "branches": "62", "food_count": null},
+        {"plant_no": 8, "size_cm": "55-56", "leaf_count": null, "branches": "10", "food_count": null},
+        {"plant_no": 9, "size_cm": "72-76", "leaf_count": null, "branches": "60-62", "food_count": null},
+        {"plant_no": 10, "size_cm": "60-62", "leaf_count": null, "branches": "34-36", "food_count": null},
+        {"plant_no": 11, "size_cm": "34-37", "leaf_count": null, "branches": "9", "food_count": null},
+        {"plant_no": 12, "size_cm": "56-58", "leaf_count": null, "branches": "11", "food_count": null},
+        {"plant_no": 13, "size_cm": "35-37", "leaf_count": null, "branches": "5", "food_count": null},
+        {"plant_no": 14, "size_cm": "33-35", "leaf_count": null, "branches": "3", "food_count": null},
+        {"plant_no": 15, "size_cm": "50-52", "leaf_count": null, "branches": "8", "food_count": null},
+        {"plant_no": 16, "size_cm": "58-60", "leaf_count": null, "branches": "3", "food_count": null}
+      ]
+    }
+  ]
+ 
+  
+}

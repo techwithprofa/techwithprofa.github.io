@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydroponic Growth Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --sky-blue: #8ecae6ff;
+            --blue-green: #219ebcff;
+            --prussian-blue: #023047ff;
+            --selective-yellow: #ffb703ff;
+            --ut-orange: #fb8500ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--prussian-blue) 0%, #034159 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(142, 202, 230, 0.2);
+            border: 2px solid var(--sky-blue);
+            color: var(--sky-blue);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: rgba(142, 202, 230, 0.3);
+            border-color: var(--selective-yellow);
+            color: var(--selective-yellow);
+            transform: translateX(-3px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--selective-yellow);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--sky-blue);
+            font-weight: 300;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            color: var(--sky-blue);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid var(--blue-green);
+            background: var(--prussian-blue);
+            color: var(--sky-blue);
+            font-size: 1em;
+            cursor: pointer;
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: var(--selective-yellow);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--ut-orange);
+            box-shadow: 0 0 0 3px rgba(251, 133, 0, 0.2);
+        }
+
+        .info-badge {
+            background: var(--ut-orange);
+            color: var(--prussian-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            color: var(--selective-yellow);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        canvas {
+            max-height: 500px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2em;
+            color: var(--sky-blue);
+        }
+
+        .error {
+            background: rgba(251, 133, 0, 0.2);
+            border: 2px solid var(--ut-orange);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px;
+            text-align: center;
+            color: var(--ut-orange);
+        }
+
+        @media (min-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-btn" onclick="window.history.back()">← Back to Journal</button>
+            <h1>📊 Hydroponic Growth Dashboard</h1>
+            <p class="subtitle">Real-time Growth Analytics & Tracking</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="dateFilter">📅 End Date:</label>
+                <select id="dateFilter">
+                    <option value="">All Data</option>
+                </select>
+            </div>
+            <div class="info-badge" id="dataInfo">Loading...</div>
+        </div>
+
+        <div id="content">
+            <div class="loading">Loading growth data...</div>
+        </div>
+    </div>
+
+    <script>
+        let allData = [];
+        let charts = {};
+
+        // Plant colors - using your color scheme
+        const plantColors = [
+            '#8ecae6', '#219ebc', '#023047', '#ffb703', '#fb8500',
+            '#60a5bd', '#34a8c5', '#1a5f7a', '#ffc433', '#fc9c30',
+            '#90d5eb', '#4bb3d1', '#034764', '#ffd966', '#fda15e',
+            '#7ac5dd'
+        ];
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('Failed to load data.json');
+                
+                const data = await response.json();
+                allData = data.daily_growth_data;
+                
+                populateDateFilter();
+                checkURLParameter();
+                
+            } catch (error) {
+                document.getElementById('content').innerHTML = `
+                    <div class="error">
+                        <h2>⚠️ Error Loading Data</h2>
+                        <p>${error.message}</p>
+                        <p>Make sure data.json is in the same directory.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function populateDateFilter() {
+            const select = document.getElementById('dateFilter');
+            allData.forEach(entry => {
+                const option = document.createElement('option');
+                option.value = entry.date;
+                option.textContent = entry.date;
+                select.appendChild(option);
+            });
+
+            select.addEventListener('change', (e) => {
+                const selectedDate = e.target.value;
+                if (selectedDate) {
+                    window.history.pushState({}, '', `?date=${selectedDate}`);
+                } else {
+                    window.history.pushState({}, '', window.location.pathname);
+                }
+                renderCharts(selectedDate);
+            });
+        }
+
+        function checkURLParameter() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dateParam = urlParams.get('date');
+            
+            if (dateParam) {
+                const select = document.getElementById('dateFilter');
+                select.value = dateParam;
+                renderCharts(dateParam);
+            } else {
+                renderCharts('');
+            }
+        }
+
+        function filterDataFromDate(endDate) {
+            if (!endDate) return allData;
+            
+            const endIndex = allData.findIndex(d => d.date === endDate);
+            if (endIndex === -1) return allData;
+            
+            return allData.slice(0, endIndex + 1);
+        }
+
+        function renderCharts(endDate) {
+            const filteredData = filterDataFromDate(endDate);
+            
+            // Update info badge
+            const dataInfo = document.getElementById('dataInfo');
+            dataInfo.textContent = endDate 
+                ? `Showing ${filteredData.length} days up to ${endDate}`
+                : `Showing all ${filteredData.length} days`;
+
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => chart.destroy());
+            charts = {};
+
+            // Create charts container
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3 class="chart-title">🌱 Plant Height Growth (cm)</h3>
+                        <canvas id="heightChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">🌿 Leaf Count Progress</h3>
+                        <canvas id="leafChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">🌳 Branch Development</h3>
+                        <canvas id="branchChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">📈 Average System Growth</h3>
+                        <canvas id="avgChart"></canvas>
+                    </div>
+                </div>
+            `;
+
+            createHeightChart(filteredData);
+            createLeafChart(filteredData);
+            createBranchChart(filteredData);
+            createAverageChart(filteredData);
+        }
+
+        function createHeightChart(data) {
+            const dates = data.map(d => d.date);
+            const datasets = [];
+
+            // Get all plants
+            for (let i = 1; i <= 16; i++) {
+                const plantData = data.map(d => {
+                    const plant = d.plant_data.find(p => p.plant_no === i);
+                    return plant ? parseFloat(plant.size_cm) || null : null;
+                });
+
+                datasets.push({
+                    label: `Plant ${i}`,
+                    data: plantData,
+                    borderColor: plantColors[i - 1],
+                    backgroundColor: plantColors[i - 1] + '33',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 3
+                });
+            }
+
+            const ctx = document.getElementById('heightChart').getContext('2d');
+            charts.height = new Chart(ctx, {
+                type: 'line',
+                data: { labels: dates, datasets: datasets },
+                options: getChartOptions('Height (cm)')
+            });
+        }
+
+        function createLeafChart(data) {
+            const dates = data.map(d => d.date);
+            const datasets = [];
+
+            for (let i = 1; i <= 16; i++) {
+                const plantData = data.map(d => {
+                    const plant = d.plant_data.find(p => p.plant_no === i);
+                    return plant && plant.leaf_count !== null ? plant.leaf_count : null;
+                });
+
+                if (plantData.some(v => v !== null)) {
+                    datasets.push({
+                        label: `Plant ${i}`,
+                        data: plantData,
+                        borderColor: plantColors[i - 1],
+                        backgroundColor: plantColors[i - 1] + '33',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointRadius: 3
+                    });
+                }
+            }
+
+            const ctx = document.getElementById('leafChart').getContext('2d');
+            charts.leaf = new Chart(ctx, {
+                type: 'line',
+                data: { labels: dates, datasets: datasets },
+                options: getChartOptions('Leaf Count')
+            });
+        }
+
+        function createBranchChart(data) {
+            const dates = data.map(d => d.date);
+            const datasets = [];
+
+            for (let i = 1; i <= 16; i++) {
+                const plantData = data.map(d => {
+                    const plant = d.plant_data.find(p => p.plant_no === i);
+                    return plant && plant.branches !== null ? plant.branches : null;
+                });
+
+                if (plantData.some(v => v !== null)) {
+                    datasets.push({
+                        label: `Plant ${i}`,
+                        data: plantData,
+                        borderColor: plantColors[i - 1],
+                        backgroundColor: plantColors[i - 1] + '33',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointRadius: 3
+                    });
+                }
+            }
+
+            const ctx = document.getElementById('branchChart').getContext('2d');
+            charts.branch = new Chart(ctx, {
+                type: 'line',
+                data: { labels: dates, datasets: datasets },
+                options: getChartOptions('Branch Count')
+            });
+        }
+
+        function createAverageChart(data) {
+            const dates = data.map(d => d.date);
+            
+            const avgHeight = data.map(d => {
+                const heights = d.plant_data
+                    .map(p => parseFloat(p.size_cm))
+                    .filter(h => !isNaN(h));
+                return heights.length > 0 
+                    ? heights.reduce((a, b) => a + b, 0) / heights.length 
+                    : null;
+            });
+
+            const ctx = document.getElementById('avgChart').getContext('2d');
+            charts.avg = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Average Height',
+                        data: avgHeight,
+                        borderColor: '#ffb703',
+                        backgroundColor: '#ffb70333',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        fill: true
+                    }]
+                },
+                options: getChartOptions('Average Height (cm)')
+            });
+        }
+
+        function getChartOptions(yAxisLabel) {
+            return {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#8ecae6',
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(2, 48, 71, 0.95)',
+                        titleColor: '#ffb703',
+                        bodyColor: '#8ecae6',
+                        borderColor: '#219ebc',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#8ecae6', font: { size: 10 } },
+                        grid: { color: 'rgba(142, 202, 230, 0.1)' }
+                    },
+                    y: {
+                        ticks: { color: '#8ecae6' },
+                        grid: { color: 'rgba(142, 202, 230, 0.1)' },
+                        title: {
+                            display: true,
+                            text: yAxisLabel,
+                            color: '#ffb703'
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            };
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
