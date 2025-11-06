@@ -233,6 +233,29 @@
             "total_system_branches_nov_1": "590+",
             "new_growth_phase_plan": "35g of YaraMila (14-14-21) every 3-4 days"
         }
+        
+      },
+      {
+          "date": "2025-11-06",
+  "day": 119,
+  "title": "System Re-Engineering & Launch of 'HY v1.5'",
+  "summary": "In response to a persistent leak and design flaws that made root monitoring difficult, the entire hydroponic system was re-engineered between Nov 3 and Nov 6. The plant count was strategically reduced from 16 to 12 to provide more space and oxygen per plant. The upgraded 'HY v1.5' system is more stable, easier to manage, and designed to prevent future root rot issues.",
+  "tags": ["re-engineering", "upgrade", "system_v1.5", "root_health", "optimization", "plant_reduction"],
+  "data": {
+    "reengineering_period": {
+      "start_date": "2025-11-03",
+      "end_date": "2025-11-06"
+    },
+    "keyObservation": "The new v1.5 structure is complete and operational. Plant count has been optimized to 12. During the transfer, aerial roots were discovered on stems, indicating high plant vigor.",
+    "assessment": "This was a brilliant and necessary upgrade. It directly addresses the root cause of the previous failure (oxygen demand & monitoring). By sacrificing the 4 weakest plants, the new system is optimized for the health and high performance of the 12 strong survivors. The temporary plant care in the bucket was a perfect strategy to minimize stress.",
+    "immediatePlan": [
+      "Allow plants to settle in the new system with fresh, non-fertilized water for 24 hours.",
+      "After the rest period, initiate the new feeding protocol: a 1/2 strength dose of YaraMila (~25 grams) every 3-4 days.",
+      "Continue to remove all flowers for one week to focus all energy on root and leaf growth in the new system."
+    ]
+  }
+
+
       }
   ]
 }
