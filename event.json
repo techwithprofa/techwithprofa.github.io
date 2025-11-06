@@ -223,39 +223,30 @@
       "details": "The weakest and non-recovering plants were removed from the system. A new daily feeding plan was initiated using a balanced fertilizer to provide a steady, gentle supply of nutrition to the strong new root systems.",
       "data": {"fertilizer_plan": "5g of YaraMila (14-14-21) per day for 5 days"}
     },
-    {
-        "date": "2025-11-01",
-        "day": 114,
-        "title": "VICTORY: Recovery Complete & Growth Phase Begins",
-        "details": "The 5-day balanced feeding has concluded. The system is now stable and healthy. A full data measurement confirms that not only have the plants survived, but the total system branch count has increased by over 150 since the crisis began. Critically, new white roots are confirmed on Plant 2, marking its full recovery. The system now transitions from recovery to a new 'Growth Phase' with a stronger, less frequent feeding schedule.",
-        "data": {
-            "total_system_branches_oct_1": 438,
-            "total_system_branches_nov_1": "590+",
-            "new_growth_phase_plan": "35g of YaraMila (14-14-21) every 3-4 days"
-        }
-        
-      },
       {
-          "date": "2025-11-06",
-  "day": 119,
-  "title": "System Re-Engineering & Launch of 'HY v1.5'",
-  "summary": "In response to a persistent leak and design flaws that made root monitoring difficult, the entire hydroponic system was re-engineered between Nov 3 and Nov 6. The plant count was strategically reduced from 16 to 12 to provide more space and oxygen per plant. The upgraded 'HY v1.5' system is more stable, easier to manage, and designed to prevent future root rot issues.",
-  "tags": ["re-engineering", "upgrade", "system_v1.5", "root_health", "optimization", "plant_reduction"],
-  "data": {
-    "reengineering_period": {
-      "start_date": "2025-11-03",
-      "end_date": "2025-11-06"
-    },
-    "keyObservation": "The new v1.5 structure is complete and operational. Plant count has been optimized to 12. During the transfer, aerial roots were discovered on stems, indicating high plant vigor.",
-    "assessment": "This was a brilliant and necessary upgrade. It directly addresses the root cause of the previous failure (oxygen demand & monitoring). By sacrificing the 4 weakest plants, the new system is optimized for the health and high performance of the 12 strong survivors. The temporary plant care in the bucket was a perfect strategy to minimize stress.",
-    "immediatePlan": [
-      "Allow plants to settle in the new system with fresh, non-fertilized water for 24 hours.",
-      "After the rest period, initiate the new feeding protocol: a 1/2 strength dose of YaraMila (~25 grams) every 3-4 days.",
-      "Continue to remove all flowers for one week to focus all energy on root and leaf growth in the new system."
-    ]
-  }
-
-
+      "date": "2025-11-03",
+      "day": 116,
+      "title": "System Re-Engineering Begins",
+      "details": "To address a persistent leak and improve root monitoring, the decision was made to dismantle the original system. The 12 strongest plants were carefully removed and temporarily housed in a bucket with a light protective solution of Topsin and Nitrogen to minimize stress during the upgrade.",
+      "data": {
+        "action": "Dismantle v1.0",
+        "plant_count_reduction": "From 16 to 12"
       }
+    },
+    {
+      "date": "2025-11-06",
+      "day": 119,
+      "title": "Launch of 'HY v1.5' & New Growth Plan",
+      "details": "The system re-engineering is complete. The new 'HY v1.5' features a stronger, more stable structure with improved design for better root access. The 12 selected plants were transplanted into the new system. This upgrade provides more space and oxygen per plant, directly addressing the root cause of the previous crisis.",
+      "data": {
+        "system_version": "HY v1.5",
+        "final_plant_count": 12,
+        "new_feeding_plan": "Start with 1/2 strength YaraMila (~25g) every 3-4 days after a 24-hour rest period."
+      }
+    }
+    
+
+
+      
   ]
 }
