@@ -243,6 +243,30 @@
         "final_plant_count": 12,
         "new_feeding_plan": "Start with 1/2 strength YaraMila (~25g) every 3-4 days after a 24-hour rest period."
       }
+    },
+    {
+      "date": "2025-11-09",
+      "day": 122,
+      "title": "CRITICAL: Second Root Rot Infection Detected Post-Transplant",
+      "details": "After the system re-engineering, plants began showing severe wilting. While initially diagnosed as transplant shock, a physical inspection and 'pull test' confirmed that a new, aggressive root rot infection had attacked the plants in their weakened and wounded state. An emergency half-dose of Topsin was immediately applied.",
+      "tags": ["crisis", "root_rot", "relapse", "transplant_shock", "topsin"],
+      "data": {
+        "diagnosis": "Aggressive secondary root rot infection on stressed plants.",
+        "action_taken": "A half-dose (15-20g) of Topsin was applied to the main tank, with a light foliar spray for protection.",
+        "feeding_status": "All fertilizer plans are on hold indefinitely."
+      }
+    },
+    {
+      "date": "2025-11-11",
+      "day": 124,
+      "title": "System Stabilizing & Support Actions Taken",
+      "details": "The plants remain visually stressed, which is the expected condition two days after the Topsin treatment. The medicine is working invisibly on the roots. A support action was taken by applying a foliar spray of high-phosphorus fertilizer to help combat leaf dehydration and provide minimal energy directly to the foliage.",
+      "tags": ["stabilization", "recovery", "foliar_feeding", "support_action"],
+      "data": {
+        "plant_status": "Visually stressed but stable. No further decline observed.",
+        "assessment": "The Topsin requires more time to work. The primary goal is to wait for new white root growth, expected in the next 3-8 days.",
+        "support_action": "Light foliar spray of 'root food' applied."
+      }
     }
     
 
